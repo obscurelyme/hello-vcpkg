@@ -1,0 +1,4 @@
+{
+  "name": "hello-raylib",
+  "dependencies": ["fmt", "raylib"]
+}
