@@ -11,10 +11,18 @@ set(CMAKE_CXX_STANDARD 17)
 # Find packages
 find_package(fmt CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
-find_package(glfw3 CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED) # We need this because we are statically linking raylib
+
+# Source files
+set(SOURCES
+  src/main.cpp
+)
 
 # Add sources to executable
-add_executable(HelloWorld hello.cpp)
+add_executable(HelloWorld ${SOURCES})
+
+# Include directories
+target_include_directories(HelloWorld PRIVATE include)
 
 # Link libraries
 target_link_libraries(HelloWorld PRIVATE fmt::fmt raylib glfw winmm)
