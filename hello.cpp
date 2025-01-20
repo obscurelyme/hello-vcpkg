@@ -1,24 +1,19 @@
-#include <iostream>
-#include <vector>
-#include <string>
 #include <fmt/core.h>
 #include <raylib.h>
 
-int main()
-{
-  fmt::println("Hello\n");
+const int MAX_FRAMERATE = 60;
 
+int main() {
   const int screenWidth = 800;
   const int screenHeight = 450;
 
   InitWindow(screenWidth, screenHeight, "Basic Window");
-  SetTargetFPS(60);
+  SetTargetFPS(MAX_FRAMERATE);
 
-  while (!WindowShouldClose())
-  {
+  while (!WindowShouldClose()) {
     BeginDrawing();
     ClearBackground(RAYWHITE);
-    DrawText("Congratz!", 190, 200, 20, BLACK);
+    DrawText("Congratz!", 190, 200, 20, BLACK);  // NOLINT
     EndDrawing();
   }
 

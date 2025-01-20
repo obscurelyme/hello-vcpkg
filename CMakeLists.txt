@@ -11,9 +11,17 @@ set(CMAKE_CXX_STANDARD 17)
 # Find packages
 find_package(fmt CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
 
 # Add sources to executable
 add_executable(HelloWorld hello.cpp)
 
 # Link libraries
-target_link_libraries(HelloWorld PRIVATE fmt::fmt raylib)
+target_link_libraries(HelloWorld PRIVATE fmt::fmt raylib glfw winmm)
+
+# Compiler options, enable all warnings
+if (MSVC)
+  target_compile_options(HelloWorld PRIVATE /W4 /WX)
+else()
+  target_compile_options(HelloWorld PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
