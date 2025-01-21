@@ -13,6 +13,21 @@
       }
     },
     {
+      "name": "debug-custom",
+      "inherits": "vcpkg",
+      "architecture": {
+        "strategy": "external",
+        "value": "x64"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/triplets",
+        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${sourceDir}/triplets/toolchains/llvm.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-win-llvm",
+        "VCPKG_HOST_TRIPLET": "x64-win-llvm"
+      }
+    },
+    {
       "name": "release",
       "inherits": "vcpkg",
       "architecture": {
