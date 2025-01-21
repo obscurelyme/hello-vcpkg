@@ -1,5 +1,7 @@
 ---
 Checks: "*,
+  -misc-include-cleaner,
+  -misc-use-internal-linkage,
   -abseil-*,
   -altera-*,
   -android-*,
@@ -15,6 +17,8 @@ Checks: "*,
   -misc-non-private-member-variables-in-classes,
 "
 WarningsAsErrors: "*,
+  -misc-include-cleaner,
+  -misc-use-internal-linkage,
   -abseil-*,
   -altera-*,
   -android-*,

@@ -3,6 +3,7 @@
   "name": "hello-raylib",
   "dependencies": [
     "fmt",
-    "raylib"
+    "raylib",
+    "spdlog"
   ]
 }

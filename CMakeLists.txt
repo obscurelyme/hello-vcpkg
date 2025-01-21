@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(fmt CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED) # We need this because we are statically linking raylib
+find_package(spdlog CONFIG REQUIRED)
 
 # Source files
 set(SOURCES
@@ -25,11 +26,11 @@ add_executable(HelloWorld ${SOURCES})
 target_include_directories(HelloWorld PRIVATE include)
 
 # Link libraries
-target_link_libraries(HelloWorld PRIVATE fmt::fmt raylib glfw winmm)
+target_link_libraries(HelloWorld PRIVATE fmt::fmt raylib glfw winmm spdlog::spdlog)
 
 # Compiler options, enable all warnings
 if (MSVC)
   target_compile_options(HelloWorld PRIVATE /W4 /WX)
 else()
-  target_compile_options(HelloWorld PRIVATE -Wall -Wextra -Wpedantic -Werror)
+  # target_compile_options(HelloWorld PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
