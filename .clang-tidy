@@ -2,6 +2,8 @@
 Checks: "*,
   -misc-include-cleaner,
   -misc-use-internal-linkage,
+  -hicpp-deprecated-headers,
+  -modernize-deprecated-headers,
   -abseil-*,
   -altera-*,
   -android-*,
@@ -14,11 +16,18 @@ Checks: "*,
   -readability-static-accessed-through-instance,
   -readability-avoid-const-params-in-decls,
   -cppcoreguidelines-non-private-member-variables-in-classes,
-  -misc-non-private-member-variables-in-classes,
-"
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -misc-non-private-member-variables-in-classes
+  -performance-enum-size"
 WarningsAsErrors: "*,
+  -concurrency-mt-unsafe,
   -misc-include-cleaner,
   -misc-use-internal-linkage,
+  -hicpp-deprecated-headers,
+  -hicpp-avoid-c-arrays,
+  -modernize-deprecated-headers,
+  -modernize-avoid-c-arrays,
+  -bugprone-unsafe-functions,
   -abseil-*,
   -altera-*,
   -android-*,
@@ -31,10 +40,11 @@ WarningsAsErrors: "*,
   -readability-static-accessed-through-instance,
   -readability-avoid-const-params-in-decls,
   -cppcoreguidelines-non-private-member-variables-in-classes,
-  -misc-non-private-member-variables-in-classes,
-"
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-avoid-c-arrays,
+  -misc-non-private-member-variables-in-classes"
 HeaderFileExtensions:
-  - ''
+  - ""
   - h
   - hh
   - hpp
@@ -44,5 +54,7 @@ ImplementationFileExtensions:
   - cc
   - cpp
   - cxx
-HeaderFilterRegex: ''
-FormatStyle:     none
+HeaderFilterRegex: ""
+FormatStyle: none
+EnumIgnoreList:
+  - LogLevel
