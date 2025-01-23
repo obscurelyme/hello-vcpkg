@@ -3,7 +3,14 @@
 
 #include <Logging/core.hpp>
 
+#include "errors/errors.h"
+
 const int MAX_FRAMERATE = 60;
+
+void CleanUp() {
+  CloseWindow();
+  Zero::CleanTraceLogSinks();
+}
 
 int main() {
   const int screenWidth = 800;
@@ -11,11 +18,14 @@ int main() {
 
   Zero::InitTraceLogSinks();
   SetTraceLogCallback(Zero::RaylibTraceCallback);
+
   InitWindow(screenWidth, screenHeight, "Basic Window");
-  Zero::ConsoleLog("Test log");
-  Zero::ConsoleDebug("Test debug");
-  Zero::ConsoleWarn("Test warn");
-  Zero::ConsoleErr("Test error");
+  if (!IsWindowReady()) {
+    Zero::ConsoleCrit("Raylib window was not initialized.");
+    Zero::CleanTraceLogSinks();
+    return Zero::Error::NoWindow;
+  }
+
   SetTargetFPS(MAX_FRAMERATE);
 
   while (!WindowShouldClose()) {
@@ -25,8 +35,7 @@ int main() {
     EndDrawing();
   }
 
-  CloseWindow();
-  Zero::CleanTraceLogSinks();
+  CleanUp();
 
   return 0;
 }
