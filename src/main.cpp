@@ -9,9 +9,13 @@ int main() {
   const int screenWidth = 800;
   const int screenHeight = 450;
 
-  Zero::InitLogSinks();
+  Zero::InitTraceLogSinks();
   SetTraceLogCallback(Zero::RaylibTraceCallback);
   InitWindow(screenWidth, screenHeight, "Basic Window");
+  Zero::TraceLog(Zero::LogLevel::LOG_INFO, "Test log", {});
+  Zero::TraceLog(Zero::LogLevel::LOG_DEBUG, "Test debug", {});
+  Zero::TraceLog(Zero::LogLevel::LOG_WARNING, "Test warn", {});
+  Zero::TraceLog(Zero::LogLevel::LOG_ERROR, "Test error", {});
   SetTargetFPS(MAX_FRAMERATE);
 
   while (!WindowShouldClose()) {
@@ -22,7 +26,7 @@ int main() {
   }
 
   CloseWindow();
-  Zero::CleanLogSinks();
+  Zero::CleanTraceLogSinks();
 
   return 0;
 }
