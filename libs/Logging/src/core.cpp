@@ -68,14 +68,13 @@ void handleSpdLogError(const std::string &msg) {
 void Zero::InitTraceLogSinks() {
   Sinks = std::make_unique<TraceLogSinks>();
   Sinks->Console = spdlog::stdout_color_st("console");
-  Sinks->Err = spdlog::stderr_color_st("stderr");
   Sinks->Console->set_level(spdlog::level::trace);
   Sinks->Console->set_error_handler(handleSpdLogError);
 }
 
 void Zero::CleanTraceLogSinks() { Sinks.reset(); }
 
-void Zero::TraceLog(Zero::LogLevel logLevel, const std::string text, const std::vector<std::string> args) {
+void Zero::TraceLog(Zero::LogLevel logLevel, const std::string &text, const std::vector<std::string> args) {
   if (logLevel == Zero::LogLevel::LOG_INFO) {
     Sinks->Console->info("{:s}", text);
   }
@@ -100,3 +99,13 @@ void Zero::TraceLog(Zero::LogLevel logLevel, const std::string text, const std::
     Sinks->Console->critical("{:s}", text);
   }
 }
+
+void Zero::ConsoleLog(const std::string &text) { Zero::TraceLog(Zero::LogLevel::LOG_INFO, text, {}); }
+
+void Zero::ConsoleWarn(const std::string &text) { Zero::TraceLog(Zero::LogLevel::LOG_WARNING, text, {}); }
+
+void Zero::ConsoleErr(const std::string &text) { Zero::TraceLog(Zero::LogLevel::LOG_ERROR, text, {}); }
+
+void Zero::ConsoleCrit(const std::string &text) { Zero::TraceLog(Zero::LogLevel::LOG_FATAL, text, {}); }
+
+void Zero::ConsoleDebug(const std::string &text) { Zero::TraceLog(Zero::LogLevel::LOG_DEBUG, text, {}); }

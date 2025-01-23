@@ -23,7 +23,6 @@ namespace Zero {
 
   struct TraceLogSinks {
     std::shared_ptr<spdlog::logger> Console;
-    std::shared_ptr<spdlog::logger> Err;
   };
 
   void InitTraceLogSinks();
@@ -41,7 +40,22 @@ namespace Zero {
    */
   void RaylibTraceCallback(int logLevel, const char *text, va_list args);
 
-  void TraceLog(LogLevel logLevel, const std::string text, const std::vector<std::string> args);
+  void TraceLog(LogLevel logLevel, const std::string &text, const std::vector<std::string> args);
+
+  // Logs an [info] statement to the console.
+  void ConsoleLog(const std::string &text);
+
+  // Logs a [warn] statement to the console.
+  void ConsoleWarn(const std::string &text);
+
+  // Logs an [error] statement to the console.
+  void ConsoleErr(const std::string &text);
+
+  // Logs a [critial] statement to the console.
+  void ConsoleCrit(const std::string &text);
+
+  // Logs a [debug] statement to the console.
+  void ConsoleDebug(const std::string &text);
 }  // namespace Zero
 
 #endif

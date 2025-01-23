@@ -12,10 +12,10 @@ int main() {
   Zero::InitTraceLogSinks();
   SetTraceLogCallback(Zero::RaylibTraceCallback);
   InitWindow(screenWidth, screenHeight, "Basic Window");
-  Zero::TraceLog(Zero::LogLevel::LOG_INFO, "Test log", {});
-  Zero::TraceLog(Zero::LogLevel::LOG_DEBUG, "Test debug", {});
-  Zero::TraceLog(Zero::LogLevel::LOG_WARNING, "Test warn", {});
-  Zero::TraceLog(Zero::LogLevel::LOG_ERROR, "Test error", {});
+  Zero::ConsoleLog("Test log");
+  Zero::ConsoleDebug("Test debug");
+  Zero::ConsoleWarn("Test warn");
+  Zero::ConsoleErr("Test error");
   SetTargetFPS(MAX_FRAMERATE);
 
   while (!WindowShouldClose()) {
