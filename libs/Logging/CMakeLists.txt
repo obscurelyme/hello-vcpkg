@@ -14,3 +14,10 @@ find_package(glfw3 CONFIG REQUIRED) # We need this because we are statically lin
 add_library(Logging ${SOURCES})
 target_include_directories(Logging PUBLIC include)
 target_link_libraries(Logging PRIVATE fmt::fmt spdlog::spdlog glfw winmm)
+
+# Compiler options, enable all warnings
+if (MSVC)
+  target_compile_options(RaylibPong PRIVATE /W4 /WX /utf-8)
+else()
+  target_compile_options(RaylibPong PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()

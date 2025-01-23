@@ -2,6 +2,9 @@
 #include <raylib.h>
 
 #include <Logging/core.hpp>
+#include <exception>
+#include <boost/filesystem.hpp>
+#include <iostream>
 
 #include "errors/errors.h"
 
@@ -11,10 +14,6 @@ void CleanUp() {
   CloseWindow();
   Zero::CleanTraceLogSinks();
 }
-
-Color darkred{.r = 131, .g = 0, .b = 9, .a = 255};
-std::vector<Vector2> cachedMousePositions{};
-Vector2 currentVec2;
 
 int main() {
   const int screenWidth = 1920;
@@ -32,20 +31,19 @@ int main() {
 
   SetTargetFPS(MAX_FRAMERATE);
 
+  boost::filesystem::current_path();
+  boost::filesystem::path spaceshipImagePath = boost::filesystem::current_path() / "spaceship.png";
+
+  Texture2D spaceshipImage = LoadTexture(spaceshipImagePath.string().c_str());
+
   while (!WindowShouldClose()) {
     // NOTE: input...
-    currentVec2 = GetMousePosition();
-    cachedMousePositions.push_back(currentVec2);
 
     // NOTE: rendering...
     BeginDrawing();
     ClearBackground(BLACK);
 
-    for (const Vector2& vec2 : cachedMousePositions) {
-      DrawPixel(vec2.x, vec2.y, RED);
-    }
-
-    DrawLineEx(Vector2{0, 0}, Vector2{500, 500}, 10.0f, darkred);
+    DrawTexture(spaceshipImage, 0, 0, WHITE);
 
     EndDrawing();
   }

@@ -120,7 +120,9 @@
     "ios": "cpp",
     "list": "cpp",
     "xhash": "cpp",
-    "xtree": "cpp"
+    "xtree": "cpp",
+    "iostream": "cpp",
+    "cinttypes": "cpp"
   },
   "files.readonlyInclude": {
     "{**/.c4z/.extsrcs/*.PROTSYM.cbl,**/.c4z/.extsrcs/*.PROTSYM.listing}": true
