@@ -17,6 +17,11 @@ set(SOURCES
   src/main.cpp
 )
 
+# Add assets folder
+set(ASSETS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/assets)
+set(ASSETS_DEST_DIR ${CMAKE_BINARY_DIR}/assets)
+add_custom_target(Assets ALL COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different ${ASSETS_SOURCE_DIR} ${ASSETS_DEST_DIR} COMMENT "Copying assets to build directory")
+
 # Add sources to executable
 add_executable(RaylibPong ${SOURCES})
 
