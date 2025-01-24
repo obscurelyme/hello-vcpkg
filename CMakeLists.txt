@@ -45,7 +45,9 @@ target_include_directories(RaylibPong PRIVATE include)
 
 # Link libraries
 target_link_libraries(RaylibPong PRIVATE raylib glfw winmm argparse::argparse Logging)
-# add_compile_definitions(SPDLOG_COMPILED_LIB)
+
+# Compile definitions
+add_compile_definitions(RaylibPong PRIVATE ZERO_BUILD=${CMAKE_BUILD_TYPE})
 
 # Compiler options, enable all warnings
 if (MSVC)

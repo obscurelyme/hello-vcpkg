@@ -22,3 +22,9 @@ void Zero::MonitorsManager::toggleVsync(const bool enabled) {
 }
 
 void Zero::MonitorsManager::toggleFullscreen() { ToggleBorderlessWindowed(); }
+
+Vector2 Zero::MonitorsManager::monitorSize() {
+  int monitor = GetCurrentMonitor();
+  Vector2 size{.x = static_cast<float>(GetMonitorWidth(monitor)), .y = static_cast<float>(GetMonitorHeight(monitor))};
+  return size;
+}

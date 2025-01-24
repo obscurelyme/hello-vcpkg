@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     Zero::MonitorsManager::toggleVsync(vsync);
     Zero::InitTraceLogSinks();
     SetTraceLogCallback(Zero::RaylibTraceCallback);
-    InitWindow(screenWidth, screenHeight, "Basic Window");
+    InitWindow(screenWidth, screenHeight, "Raylib Window");
     if (!IsWindowReady()) {
       Zero::ConsoleCrit("Raylib window was not initialized.");
       Zero::CleanTraceLogSinks();  // NOTE: Do not call CloseWindow because there is no window to close

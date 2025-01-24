@@ -14,8 +14,12 @@ Zero::Args::Args(const int argc, char* argv[]) : args(argparse::ArgumentParser{"
       .action([](const std::string& value) -> int { return std::stoi(value); });
 
   this->args.add_argument("--vsync").help("Toggles vsync for the window").flag();
+
+#if ZERO_BUILD == Debug
   this->args.add_argument("--fullscreen").help("Toggles fullscreen for the window").flag();
   this->args.add_argument("--verbose").help("Toggles verbose logging").flag();
+#elif ZERO_BUILD == Release
+#endif
 
   args.parse_args(argc, argv);
 }

@@ -1,6 +1,8 @@
 #ifndef ZERO_MONITORS_H_
 #define ZERO_MONITORS_H_
 
+#include <raylib.h>
+
 #include <string>
 
 namespace Zero {
@@ -21,6 +23,8 @@ namespace Zero {
       // Toggle Vsync for the active monitor
       static void toggleVsync(const bool enabled);
       static void toggleFullscreen();
+      // Return the size of the current monitor
+      static Vector2 monitorSize();
   };
 }  // namespace Zero
 

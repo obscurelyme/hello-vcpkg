@@ -24,7 +24,14 @@ namespace Zero {
       std::string version() const { return this->args.get<std::string>("version"); }
       bool help() const { return this->args.get<bool>("help"); }
       bool vsync() const { return this->args.get<bool>("vsync"); }
-      bool fullscreen() const { return this->args.get<bool>("fullscreen"); }
+      bool fullscreen() const {
+#if ZERO_BUILD == Debug
+        return this->args.get<bool>("fullscreen");
+#else
+        // NOTE: force fullscreen mode on Release builds
+        return true;
+#endif
+      }
       int screenWidth() const { return this->args.get<int>("width"); }
       int screenHeight() const { return this->args.get<int>("height"); }
 
