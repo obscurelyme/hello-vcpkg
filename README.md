@@ -18,6 +18,8 @@ C:\msys64\opt\bin
 C:\msys64\usr\ucrt64\bin
 ```
 
+If you need more tools, check out the Msys packages [here](https://packages.msys2.org/queue)
+
 ### Cmake
 
 Install [Cmake](https://cmake.org/download/)
