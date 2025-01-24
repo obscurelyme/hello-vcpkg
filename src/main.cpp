@@ -2,9 +2,7 @@
 #include <raylib.h>
 
 #include <Logging/core.hpp>
-#include <exception>
 #include <filesystem>
-#include <iostream>
 
 #include "errors/errors.h"
 

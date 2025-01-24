@@ -1,8 +1,5 @@
 {
-  "clang-tidy.buildPath": "build",
-  "clang-tidy.blacklist": ["build/*"],
-  "clang-tidy.lintOnSave": true,
-  "clang-tidy.fixOnSave": false,
+  "clangd.restartAfterCrash": true,
   "editor.defaultFormatter": "xaver.clang-format",
   "editor.formatOnSave": true,
   "files.associations": {
