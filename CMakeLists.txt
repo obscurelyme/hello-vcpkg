@@ -19,6 +19,7 @@ find_package(glfw3 CONFIG REQUIRED) # We need this because we are statically lin
 # Source files
 set(SOURCES
   src/main.cpp
+  src/textures.cpp
 )
 
 # Add assets folder

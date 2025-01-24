@@ -2,9 +2,11 @@
 #include <raylib.h>
 
 #include <Logging/core.hpp>
+#include <algorithm>
 #include <filesystem>
 
 #include "errors/errors.h"
+#include "textures/textures.h"
 
 const int MAX_FRAMERATE = 60;
 
@@ -28,13 +30,7 @@ int main() {
   }
 
   SetTargetFPS(MAX_FRAMERATE);
-
-  std::filesystem::path cwd = std::filesystem::current_path();
-  std::filesystem::path assets = "assets";
-  std::filesystem::path spaceshipFile = "spaceship.png";
-  std::filesystem::path spaceshipImagePath = cwd / assets / spaceshipFile;
-
-  Texture2D spaceshipImage = LoadTexture(spaceshipImagePath.string().c_str());
+  Zero::Texture2D spaceship{"spaceship.png"};
 
   while (!WindowShouldClose()) {
     // NOTE: input...
@@ -43,7 +39,7 @@ int main() {
     BeginDrawing();
     ClearBackground(BLACK);
 
-    DrawTexture(spaceshipImage, 0, 0, WHITE);
+    DrawTexture(spaceship.get(), 0, 0, WHITE);
 
     EndDrawing();
   }
