@@ -12,6 +12,7 @@ namespace Zero {
   const int BASE_YEAR = 1900;
   const int OFFSET_ONE = 1;
   std::unique_ptr<TraceLogSinks> Sinks;
+  const std::string ErrInvalidLogLevel = "Invalid log level specified - {:d}";
 }  // namespace Zero
 
 std::string Zero::FormatTraceLogMessage(const char *format, va_list args) {
@@ -55,8 +56,10 @@ void Zero::RaylibTraceCallback(int logLevel, const char *text, va_list args) {
       Sinks->Console->critical("{:s}", fmtString);
       break;
     }
-    default:
+    default: {
+      Sinks->Console->error(fmt::runtime(ErrInvalidLogLevel), logLevel);
       break;
+    }
   }
 }
 
@@ -75,28 +78,35 @@ void Zero::InitTraceLogSinks() {
 void Zero::CleanTraceLogSinks() { Sinks.reset(); }
 
 void Zero::TraceLog(Zero::LogLevel logLevel, const std::string &text, const std::vector<std::string> args) {
-  if (logLevel == Zero::LogLevel::LOG_INFO) {
-    Sinks->Console->info("{:s}", text);
-  }
-
-  if (logLevel == Zero::LogLevel::LOG_DEBUG) {
-    Sinks->Console->debug("{:s}", text);
-  }
-
-  if (logLevel == Zero::LogLevel::LOG_TRACE) {
-    Sinks->Console->trace("{:s}", text);
-  }
-
-  if (logLevel == Zero::LogLevel::LOG_WARNING) {
-    Sinks->Console->warn("{:s}", text);
-  }
-
-  if (logLevel == Zero::LogLevel::LOG_ERROR) {
-    Sinks->Console->error("{:s}", text);
-  }
-
-  if (logLevel == Zero::LogLevel::LOG_FATAL) {
-    Sinks->Console->critical("{:s}", text);
+  switch (logLevel) {
+    case Zero::LogLevel::LOG_INFO: {
+      Sinks->Console->info("{:s}", text);
+      break;
+    }
+    case Zero::LogLevel::LOG_DEBUG: {
+      Sinks->Console->debug("{:s}", text);
+      break;
+    }
+    case Zero::LogLevel::LOG_TRACE: {
+      Sinks->Console->trace("{:s}", text);
+      break;
+    }
+    case Zero::LogLevel::LOG_WARNING: {
+      Sinks->Console->warn("{:s}", text);
+      break;
+    }
+    case Zero::LogLevel::LOG_ERROR: {
+      Sinks->Console->error("{:s}", text);
+      break;
+    }
+    case Zero::LogLevel::LOG_FATAL: {
+      Sinks->Console->critical("{:s}", text);
+      break;
+    }
+    default: {
+      Sinks->Console->error(fmt::runtime(ErrInvalidLogLevel), static_cast<int>(logLevel));
+      break;
+    }
   }
 }
 
