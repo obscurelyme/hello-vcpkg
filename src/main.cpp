@@ -3,7 +3,7 @@
 
 #include <Logging/core.hpp>
 #include <exception>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <iostream>
 
 #include "errors/errors.h"
@@ -31,8 +31,10 @@ int main() {
 
   SetTargetFPS(MAX_FRAMERATE);
 
-  boost::filesystem::current_path();
-  boost::filesystem::path spaceshipImagePath = boost::filesystem::current_path() / "spaceship.png";
+  std::filesystem::path cwd = std::filesystem::current_path();
+  std::filesystem::path assets = "assets";
+  std::filesystem::path spaceshipFile = "spaceship.png";
+  std::filesystem::path spaceshipImagePath = cwd / assets / spaceshipFile;
 
   Texture2D spaceshipImage = LoadTexture(spaceshipImagePath.string().c_str());
 
