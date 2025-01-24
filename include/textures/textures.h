@@ -1,5 +1,5 @@
-#ifndef TEXTURES_H_
-#define TEXTURES_H_
+#ifndef ZERO_TEXTURES_H_
+#define ZERO_TEXTURES_H_
 
 #include <raylib.h>
 
@@ -17,14 +17,18 @@ namespace Zero {
       Texture2D() = delete;
       Texture2D(const Texture2D&) = delete;
       Texture2D& operator=(const Texture2D&) = delete;
-      Texture2D(const std::string& fileName);
-      ~Texture2D();
-      unsigned int id();
-      ::PixelFormat format();
-      ::Texture2D get();
+      Texture2D(const std::string& fileName) noexcept;
+      ~Texture2D() noexcept;
+      unsigned int id() noexcept;
+      ::PixelFormat format() noexcept;
+      ::Texture2D get() noexcept;
+      void draw() noexcept;
+
+      ::Vector2 position;
+      ::Color tint;
 
     private:
-      static std::filesystem::path assetDir;
+      const static std::filesystem::path assetDir;
       std::string filePath;
       ::Texture2D texture;
   };

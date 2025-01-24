@@ -2,49 +2,73 @@
 #include <raylib.h>
 
 #include <Logging/core.hpp>
-#include <algorithm>
-#include <filesystem>
+#include <iostream>
+#include <stdexcept>
+#include <string>
 
+#include "args/args.h"
 #include "errors/errors.h"
+#include "monitors/monitors.h"
 #include "textures/textures.h"
-
-const int MAX_FRAMERATE = 60;
 
 void CleanUp() {
   CloseWindow();
   Zero::CleanTraceLogSinks();
 }
 
-int main() {
-  const int screenWidth = 1920;
-  const int screenHeight = 1080;
+int main(int argc, char* argv[]) {
+  try {
+    Zero::Args program{argc, argv};
+    if (program.help()) {
+      program.showHelp();
+      return 0;
+    }
 
-  Zero::InitTraceLogSinks();
-  SetTraceLogCallback(Zero::RaylibTraceCallback);
+    const int screenWidth = program.screenWidth();
+    const int screenHeight = program.screenHeight();
+    const bool vsync = program.vsync();
+    const bool fullscreen = program.fullscreen();
 
-  InitWindow(screenWidth, screenHeight, "Basic Window");
-  if (!IsWindowReady()) {
-    Zero::ConsoleCrit("Raylib window was not initialized.");
-    Zero::CleanTraceLogSinks();  // NOTE: Do not call CloseWindow because there is no window to close
-    return Zero::Error::NoWindow;
+    Zero::MonitorsManager::toggleVsync(vsync);
+    Zero::InitTraceLogSinks();
+    SetTraceLogCallback(Zero::RaylibTraceCallback);
+    InitWindow(screenWidth, screenHeight, "Basic Window");
+    if (!IsWindowReady()) {
+      Zero::ConsoleCrit("Raylib window was not initialized.");
+      Zero::CleanTraceLogSinks();  // NOTE: Do not call CloseWindow because there is no window to close
+      return Zero::Error::NoWindow;
+    }
+    if (fullscreen) {
+      Zero::MonitorsManager::toggleFullscreen();
+    }
+
+    Zero::Texture2D spaceship{"spaceship.png"};
+    float deltaTime = 0.0f;
+
+    while (!WindowShouldClose()) {
+      deltaTime = GetFrameTime();
+
+      // NOTE: input...
+      spaceship.position.x += 100.0f * deltaTime;
+      if (spaceship.position.x >= screenWidth) {
+        spaceship.position.x = 0 - spaceship.get().width;
+      }
+
+      // NOTE: rendering...
+      BeginDrawing();
+      ClearBackground(BLACK);
+      DrawFPS(0, 0);
+
+      spaceship.draw();
+
+      EndDrawing();
+    }
+
+    CleanUp();
+
+    return 0;
+  } catch (const std::runtime_error& err) {
+    std::cerr << err.what() << std::endl;
+    return 1;
   }
-
-  SetTargetFPS(MAX_FRAMERATE);
-  Zero::Texture2D spaceship{"spaceship.png"};
-
-  while (!WindowShouldClose()) {
-    // NOTE: input...
-
-    // NOTE: rendering...
-    BeginDrawing();
-    ClearBackground(BLACK);
-
-    DrawTexture(spaceship.get(), 0, 0, WHITE);
-
-    EndDrawing();
-  }
-
-  CleanUp();
-
-  return 0;
 }
