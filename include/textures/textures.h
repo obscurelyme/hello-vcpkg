@@ -25,6 +25,8 @@ namespace Zero {
       void draw() noexcept;
 
       ::Vector2 position;
+      float rotation;
+      float scale;
       ::Color tint;
 
     private:
