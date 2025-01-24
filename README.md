@@ -20,6 +20,11 @@ C:\msys64\usr\ucrt64\bin
 
 If you need more tools, check out the Msys packages [here](https://packages.msys2.org/queue)
 
+Install clangd, clang-format, and clang-tidy
+```sh
+pacman -S mingw-w64-ucrt-x86_64-clang mingw-w64-ucrt-x86_64-clang-tools-extra
+```
+
 ### Cmake
 
 Install [Cmake](https://cmake.org/download/)
