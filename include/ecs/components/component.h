@@ -6,9 +6,6 @@
 #include <string>
 
 namespace Zero {
-  template <typename T>
-  using SharedComponent = std::shared_ptr<T>;
-
   enum class ComponentType { Transform = 1, Renderable, Physics };
 
   class Component {
@@ -25,6 +22,10 @@ namespace Zero {
     private:
       static std::string nextComponentIds;
   };
+
+  using SharedComponent = std::shared_ptr<Component>;
+  template <typename T>
+  using Shared = std::shared_ptr<T>;
 }  // namespace Zero
 
 #endif

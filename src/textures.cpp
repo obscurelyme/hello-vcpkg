@@ -7,6 +7,7 @@
 #include "Logging/core.hpp"
 #include "ecs/components/transform.h"
 #include "ecs/ecs.h"
+#include "ecs/entity.h"
 
 const std::string assetsDir = "assets";
 const std::string spritesDir = "sprites";

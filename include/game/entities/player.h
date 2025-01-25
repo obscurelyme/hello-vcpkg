@@ -5,6 +5,7 @@
 
 #include "ecs/components/transform.h"
 #include "ecs/ecs.h"
+#include "ecs/entity.h"
 #include "textures/textures.h"
 
 namespace Zero {
@@ -20,8 +21,8 @@ namespace Zero {
     private:
       Vector2 direction{.x = 0.0f, .y = 0.0f};
       float speed = 500.0f;
-      SharedComponent<Texture2D> spaceship = nullptr;
-      SharedComponent<Transform2D> transform = nullptr;
+      Shared<Texture2D> spaceship = nullptr;
+      Shared<Transform2D> transform = nullptr;
   };
 }  // namespace Zero
 

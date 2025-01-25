@@ -25,6 +25,7 @@ set(SOURCES
   src/monitors.cpp
   src/args.cpp
   src/ecs.cpp
+  src/entity.cpp
   src/player.cpp
   src/uuid.cpp
   src/components/component.cpp

@@ -11,13 +11,13 @@
 #include "ecs/components/component.h"
 #include "ecs/components/renderable.h"
 #include "ecs/components/transform.h"
-#include "uuid/uuid.h"
 
 namespace Zero {
   using EntityId = std::string;
   using ComponentBitset = std::bitset<32>;
 
   class Entity;
+
   inline std::unordered_map<EntityId, Entity*> entities;
   inline std::unordered_map<EntityId, Entity*> entitiesToInit;
   inline std::unordered_map<EntityId, Entity*> entitiesToMakeReady;
@@ -78,7 +78,7 @@ namespace Zero {
         }
       }
 
-      static SharedComponent<Component> GetComponent(const std::string& entityId, const ComponentType& type) {
+      static SharedComponent GetComponent(const std::string& entityId, const ComponentType& type) {
         if (instance->entityComponentMask[entityId].test(static_cast<int>(type))) {
           switch (type) {
             case Zero::ComponentType::Transform: {
@@ -123,70 +123,12 @@ namespace Zero {
       EntityId nextEntityId;
 
       std::unordered_map<EntityId, ComponentBitset> entityComponentMask;
-      std::unordered_map<EntityId, SharedComponent<Renderable>> renderables;
-      std::unordered_map<EntityId, SharedComponent<Transform2D>> transforms;
+      std::unordered_map<EntityId, Shared<Renderable>> renderables;
+      std::unordered_map<EntityId, Shared<Transform2D>> transforms;
   };
 
-  class Entity {
-    public:
-      explicit Entity() {
-        this->entityId = randomUUID();
-        entities[this->entityId] = this;
-        entitiesToInit[this->entityId] = this;
-        entitiesToMakeReady[this->entityId] = this;
-      }
-      virtual ~Entity() {
-        // NOTE: remove this entity from all helper maps so that the lifetime methods aren't mistakenly invoked.
-        entities.erase(this->entityId);
-        entitiesToInit.erase(this->entityId);
-        entitiesToMakeReady.erase(this->entityId);
-        entitiesToDestroy.erase(this->entityId);
-        entitiesCommittedToInit.erase(this->entityId);
-        entitiesCommittedToReady.erase(this->entityId);
-      };
-      virtual void init() = 0;
-      virtual void ready() = 0;
-      virtual void update(float deltaTime) = 0;
-      virtual void physicsUpdate() = 0;
-      virtual void destroy() = 0;
-
-      void addComponent(const std::shared_ptr<Component>& component) {
-        component->entityId = this->entityId;
-        EntityManager::AddComponent(this->entityId, component);
-      }
-
-      void removeComponent(const std::shared_ptr<Component>& component) {
-        component->entityId = "";
-        EntityManager::RemoveComponent(this->entityId, component);
-      }
-
-      SharedComponent<Component> getComponent(const ComponentType& type) {
-        return EntityManager::GetComponent(this->entityId, type);
-      }
-
-      // uuid string
-      EntityId entityId;
-  };  // namespace Zero
-
-  inline void ProcessInits() {
-    entitiesCommittedToInit.swap(entitiesToInit);
-
-    for (auto it = entitiesCommittedToInit.begin(); it != entitiesCommittedToInit.end(); ++it) {
-      it->second->init();
-    }
-
-    entitiesCommittedToInit.clear();
-  }
-
-  inline void ProcessReadies() {
-    entitiesCommittedToReady.swap(entitiesToMakeReady);
-
-    for (auto it = entitiesCommittedToReady.begin(); it != entitiesCommittedToReady.end(); ++it) {
-      it->second->ready();
-    }
-
-    entitiesCommittedToReady.clear();
-  }
+  void ProcessInits();
+  void ProcessReadies();
 }  // namespace Zero
 
 #endif
