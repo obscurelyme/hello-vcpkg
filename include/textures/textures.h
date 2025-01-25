@@ -1,6 +1,7 @@
 #ifndef ZERO_TEXTURES_H_
 #define ZERO_TEXTURES_H_
 
+#include <ecs/ecs.h>
 #include <raylib.h>
 
 #include <filesystem>
@@ -12,17 +13,15 @@ namespace Zero {
    * the understanding of the "assets" directory under the hood. So to load a new texture
    * simple pass the fileName to the constructor.
    */
-  class Texture2D {
+  class Texture2D : public Renderable {
     public:
-      Texture2D() = delete;
-      Texture2D(const Texture2D&) = delete;
-      Texture2D& operator=(const Texture2D&) = delete;
       Texture2D(const std::string& fileName) noexcept;
       ~Texture2D() noexcept;
       unsigned int id() noexcept;
       ::PixelFormat format() noexcept;
       ::Texture2D get() noexcept;
       void draw() noexcept;
+      void render();
 
       ::Vector2 position;
       float rotation;

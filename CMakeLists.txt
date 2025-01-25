@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Find packages
+find_package(Boost REQUIRED COMPONENTS uuid)
 find_package(argparse CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED) # We need this because we are statically linking raylib
@@ -23,6 +24,9 @@ set(SOURCES
   src/textures.cpp
   src/monitors.cpp
   src/args.cpp
+  src/ecs.cpp
+  src/player.cpp
+  src/uuid.cpp
 )
 
 # Add assets folder
@@ -44,7 +48,7 @@ add_subdirectory("libs/Logging")
 target_include_directories(RaylibPong PRIVATE include)
 
 # Link libraries
-target_link_libraries(RaylibPong PRIVATE raylib glfw winmm argparse::argparse Logging)
+target_link_libraries(RaylibPong PRIVATE raylib glfw winmm argparse::argparse Boost::uuid Logging)
 
 # Compile definitions
 add_compile_definitions(RaylibPong PRIVATE ZERO_BUILD=${CMAKE_BUILD_TYPE})

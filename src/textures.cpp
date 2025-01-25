@@ -12,7 +12,7 @@ namespace Zero {
   const float DFAULT_ROTATION = 0.0f;
 }  // namespace Zero
 
-Zero::Texture2D::Texture2D(const std::string& fileName) noexcept {
+Zero::Texture2D::Texture2D(const std::string& fileName) noexcept : Zero::Renderable() {
   this->filePath = (this->assetDir / fileName).string();
   this->texture = LoadTexture(this->filePath.c_str());
   this->position = Vector2{.x = 0.0f, .y = 0.0f};
@@ -38,3 +38,5 @@ unsigned int Zero::Texture2D::id() noexcept { return this->texture.id; }
 void Zero::Texture2D::draw() noexcept {
   DrawTextureEx(this->texture, this->position, this->rotation, this->scale, this->tint);
 }
+
+void Zero::Texture2D::render() { this->draw(); }

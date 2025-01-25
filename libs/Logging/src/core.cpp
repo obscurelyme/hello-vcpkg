@@ -5,6 +5,7 @@
 #include <spdlog/spdlog.h>
 
 #include <Logging/core.hpp>
+#include <stdexcept>
 #include <string>
 
 namespace Zero {
@@ -30,6 +31,9 @@ std::string Zero::FormatTraceLogMessage(const char *format, va_list args) {
 
 void Zero::RaylibTraceCallback(int logLevel, const char *text, va_list args) {
   const std::string fmtString = FormatTraceLogMessage(text, args);
+  if (Sinks == nullptr) {
+    throw std::runtime_error{"TraceLog called to nil Sinks."};
+  }
 
   switch (logLevel) {
     case LOG_TRACE: {
@@ -78,6 +82,10 @@ void Zero::InitTraceLogSinks() {
 void Zero::CleanTraceLogSinks() { Sinks.reset(); }
 
 void Zero::TraceLog(Zero::LogLevel logLevel, const std::string &text, const std::vector<std::string> args) {
+  if (Sinks == nullptr) {
+    throw std::runtime_error{"TraceLog called to nil Sinks."};
+  }
+
   switch (logLevel) {
     case Zero::LogLevel::LOG_INFO: {
       Sinks->Console->info("{:s}", text);
