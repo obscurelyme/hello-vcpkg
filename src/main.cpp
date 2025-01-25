@@ -66,10 +66,9 @@ int main(int argc, char* argv[]) {
       for (auto it = Zero::entities.begin(); it != Zero::entities.end(); ++it) {
         it->second->update(deltaTime);
       }
-      Zero::ConsoleLog("Update");
 
       if (fixedDeltaTime >= fixedTargetDeltaTime) {
-        Zero::ConsoleLog(fmt::format("Physics update: {:f}", fixedDeltaTime));
+        // Zero::ConsoleTrace(fmt::format("Physics update: {:f}", fixedDeltaTime));
         // NOTE: Physics updates
         for (auto it = Zero::entities.begin(); it != Zero::entities.end(); ++it) {
           it->second->physicsUpdate(fixedDeltaTime);

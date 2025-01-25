@@ -118,6 +118,8 @@ void Zero::TraceLog(Zero::LogLevel logLevel, const std::string &text, const std:
   }
 }
 
+void Zero::ConsoleTrace(const std::string &text) { Zero::TraceLog(Zero::LogLevel::LOG_TRACE, text, {}); }
+
 void Zero::ConsoleLog(const std::string &text) { Zero::TraceLog(Zero::LogLevel::LOG_INFO, text, {}); }
 
 void Zero::ConsoleWarn(const std::string &text) { Zero::TraceLog(Zero::LogLevel::LOG_WARNING, text, {}); }
