@@ -27,6 +27,9 @@ set(SOURCES
   src/ecs.cpp
   src/player.cpp
   src/uuid.cpp
+  src/components/component.cpp
+  src/components/renderable.cpp
+  src/components/transform.cpp
 )
 
 # Add assets folder

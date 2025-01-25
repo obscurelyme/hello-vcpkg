@@ -17,7 +17,7 @@ namespace Zero {
     public:
       Texture2D(const std::string& fileName) noexcept;
       ~Texture2D() noexcept;
-      unsigned int id() noexcept;
+      unsigned int glId() noexcept;
       ::PixelFormat format() noexcept;
       ::Texture2D get() noexcept;
       void draw() noexcept;

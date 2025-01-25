@@ -4,7 +4,6 @@
 
 #include <Logging/core.hpp>
 #include <iostream>
-#include <memory>
 #include <stdexcept>
 #include <string>
 
@@ -13,7 +12,6 @@
 #include "errors/errors.h"
 #include "game/entities/player.h"
 #include "monitors/monitors.h"
-#include "textures/textures.h"
 
 void CleanUp() {
   CloseWindow();
@@ -51,13 +49,14 @@ int main(int argc, char* argv[]) {
     float deltaTime = 0.0f;
 
     Zero::Player* player = new Zero::Player();
-    player->init();
 
     while (!WindowShouldClose()) {
       deltaTime = GetFrameTime();
 
-      // TODO: Process new entity inits
-      // TODO: Process new entity readys
+      // NOTE: Process new entity inits
+      Zero::ProcessInits();
+      // NOTE: Process new entity readys
+      Zero::ProcessReadies();
 
       // NOTE: Process updates
       for (auto it = Zero::entities.begin(); it != Zero::entities.end(); ++it) {
