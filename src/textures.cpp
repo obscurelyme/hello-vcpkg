@@ -9,8 +9,9 @@
 #include "ecs/ecs.h"
 
 const std::string assetsDir = "assets";
+const std::string spritesDir = "sprites";
 const std::filesystem::path applicationDir = GetApplicationDirectory();
-const std::filesystem::path Zero::Texture2D::assetDir = applicationDir / assetsDir;
+const std::filesystem::path Zero::Texture2D::assetDir = applicationDir / assetsDir / spritesDir;
 
 namespace Zero {
   const float DEFAULT_SCALE = 1.0f;
