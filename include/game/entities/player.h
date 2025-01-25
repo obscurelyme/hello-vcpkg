@@ -14,8 +14,8 @@ namespace Zero {
       explicit Player();
       void init();
       void ready();
-      void update(float deltaTime);
-      void physicsUpdate();
+      void update(float);
+      void physicsUpdate(float);
       void destroy();
 
     private:

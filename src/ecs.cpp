@@ -2,9 +2,11 @@
 
 #include "ecs/entity.h"
 
-
 Zero::EntityManager* Zero::EntityManager::instance = nullptr;
 
+/**
+ * Invokes the `init` function for all Entities that were created in the previous frame.
+ */
 void Zero::ProcessInits() {
   entitiesCommittedToInit.swap(entitiesToInit);
 
@@ -15,6 +17,9 @@ void Zero::ProcessInits() {
   entitiesCommittedToInit.clear();
 }
 
+/**
+ * Invokes the `ready` function for all Entities that were created in the previous frame.
+ */
 void Zero::ProcessReadies() {
   entitiesCommittedToReady.swap(entitiesToMakeReady);
 

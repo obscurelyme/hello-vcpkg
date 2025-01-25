@@ -13,7 +13,7 @@ namespace Zero {
       virtual void init();
       virtual void ready();
       virtual void update(float);
-      virtual void physicsUpdate();
+      virtual void physicsUpdate(float);
       virtual void destroy();
 
       void addComponent(const SharedComponent& component);

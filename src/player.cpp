@@ -32,6 +32,6 @@ void Zero::Player::update(float deltaTime) {
   // spaceship->position = Vector2Add(spaceship->position, direction);
 }
 
-void Zero::Player::physicsUpdate() {}
+void Zero::Player::physicsUpdate(float) {}
 
 void Zero::Player::destroy() {}

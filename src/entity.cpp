@@ -23,8 +23,8 @@ Zero::Entity::~Entity() {
 
 void Zero::Entity::init() {}
 void Zero::Entity::ready() {}
-void Zero::Entity::update(float) {}  // NOLINT
-void Zero::Entity::physicsUpdate() {}
+void Zero::Entity::update(float) {}
+void Zero::Entity::physicsUpdate(float) {}
 void Zero::Entity::destroy() {}
 
 void Zero::Entity::addComponent(const SharedComponent& component) {
