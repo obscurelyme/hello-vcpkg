@@ -5,6 +5,7 @@
 
 #include <entt/entt.hpp>
 #include <stdexcept>
+#include <string>
 
 #include "Logging/core.hpp"
 #include "scene/scene.h"
@@ -14,17 +15,12 @@ namespace Zero {
 
   class Entity {
     public:
-      Entity() = default;
+      Entity();
       Entity(EntityId, Scene*);
-      Entity(const Entity& other) = default;
-      virtual ~Entity();
+      Entity(const Entity& other);
+      virtual ~Entity() = default;
       operator bool() const { return id != entt::null; }
-
-      virtual void init();
-      virtual void ready();
-      virtual void update(float);
-      virtual void physicsUpdate(float);
-      virtual void destroy();
+      Entity& operator=(const Entity& other);
 
       template <typename T, typename... Args>
       T& addComponent(Args&&... args) {
@@ -34,8 +30,7 @@ namespace Zero {
           ConsoleErr(err);
           throw std::runtime_error{err};
         }
-        scene->registry.emplace<T>(id, std::forward<Args>(args)...);
-        return getComponent<T>();
+        return scene->registry.emplace<T>(id, std::forward<Args>(args)...);
       }
 
       template <typename T>
@@ -61,7 +56,10 @@ namespace Zero {
 
     private:
       EntityId id{entt::null};
-      Scene* const scene{nullptr};
+      Scene* scene{nullptr};
+      inline static std::string resourceName{"ENTITY: {:s}"};
+
+      void printTrace(const std::string& str) { ConsoleTrace(fmt::format(fmt::runtime(resourceName), str)); }
   };  // namespace Zero
 }  // namespace Zero
 

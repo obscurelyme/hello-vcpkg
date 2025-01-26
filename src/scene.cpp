@@ -5,6 +5,7 @@
 #include <entt/entity/fwd.hpp>
 
 #include "Logging/core.hpp"
+#include "ecs/components/nativescript.h"
 #include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
 #include "ecs/entity.h"
@@ -37,49 +38,60 @@ namespace Zero {
 
   void Render() { activeScene->render(); }
 
-  Scene::Scene() {
-    // entt::entity entity = entityRegistry.create();
-    // entityRegistry.emplace<Transform2DComponent>(entity);
-    // entityRegistry.emplace<Sprite2DComponent>(entity);
-    // entityRegistry.emplace<AudioComponent>(entity);
-
-    // Transform2DComponent* transform = entityRegistry.try_get<Transform2DComponent>(entity);
-
-    // auto transformView = entityRegistry.view<Transform2DComponent>();
-    // for (auto entity : transformView) {
-    //   auto& t = transformView.get<Transform2DComponent>(entity);
-    //   if (t.active) {
-    //     // NOTE: update t
-    //   }
-    // }
-
-    // auto physicsView = entityRegistry.view<Collider2DComponent>();
-    // for (auto entity : physicsView) {
-    //   auto& p = physicsView.get<Collider2DComponent>(entity);
-    //   if (p.active) {
-    //     // NOTE: check for collisions with p
-    //   }
-    // }
-  }
+  Scene::Scene() {}
 
   void Scene::processInits() {
-    // TODO: loop over every entity and call init
+    auto view = registry.view<NativeScript>();
+    for (auto entity : view) {
+      auto& script = view.get<NativeScript>(entity);
+      if (script.instance == nullptr) {
+        script.instance = script.createInstance();
+        script.instance->entity = Entity{entity, this};
+        script.instance->init();
+      }
+    }
   }
 
   void Scene::processReadies() {
-    // TODO: loop over every entity and call ready
+    auto view = registry.view<NativeScript>();
+    for (auto entity : view) {
+      auto& script = view.get<NativeScript>(entity);
+      if (!script.isReady) {
+        script.instance->ready();
+        script.isReady = true;
+      }
+    }
   }
 
-  void Scene::processUpdates(float) {
-    // TODO: loop over every entity and call update
+  void Scene::processUpdates(float deltaTime) {
+    auto view = registry.view<NativeScript>();
+    for (auto entity : view) {
+      auto& script = view.get<NativeScript>(entity);
+      if (script.isReady) {
+        script.instance->update(deltaTime);
+      }
+    }
   }
 
-  void Scene::processPhysicsUpdates(float) {
-    // TODO: loop over every entity and call physicsUpdate
+  void Scene::processPhysicsUpdates(float fixedDeltaTime) {
+    auto view = registry.view<NativeScript>();
+    for (auto entity : view) {
+      auto& script = view.get<NativeScript>(entity);
+      if (!script.isReady) {
+        script.instance->physicsUpdate(fixedDeltaTime);
+      }
+    }
   }
 
   void Scene::processDestroys() {
-    // TODO: loop over every entity and call destroy
+    auto view = registry.view<NativeScript>();
+    for (auto entity : view) {
+      auto& script = view.get<NativeScript>(entity);
+      if (script.isFlaggedForDestroy) {
+        script.destroyInstance(&script);
+        view->remove(entity);
+      }
+    }
   }
 
   void Scene::render() {

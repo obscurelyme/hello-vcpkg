@@ -16,7 +16,7 @@ namespace Zero {
   const float DFAULT_ROTATION = 0.0f;
 }  // namespace Zero
 
-Zero::Sprite::Sprite(const std::string& fileName) noexcept : Zero::Renderable() {
+Zero::Sprite::Sprite(const std::string& fileName) noexcept {
   this->filePath = (this->assetDir / fileName).string();
   this->texture = LoadTexture(this->filePath.c_str());
   this->position = Vector2{.x = 0.0f, .y = 0.0f};

@@ -3,25 +3,23 @@
 
 #include <raylib.h>
 
-#include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
-#include "ecs/entity.h"
+#include "ecs/scriptableentity.h"
 
 namespace Zero {
-  class Player : public Entity {
+  class Player : public ScriptableEntity {
     public:
-      explicit Player();
-      void init();
-      void ready();
-      void update(float);
-      void physicsUpdate(float);
-      void destroy();
+      void init() override;
+      void ready() override;
+      void update(float) override;
+      void physicsUpdate(float) override;
+      void destroy() override;
 
     private:
       Vector2 direction{.x = 0.0f, .y = 0.0f};
       float speed = 500.0f;
-      Shared<Sprite> spaceship = nullptr;
-      Shared<Transform2D> transform = nullptr;
+
+      Transform2D* transform{nullptr};
   };
 }  // namespace Zero
 

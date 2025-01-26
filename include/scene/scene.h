@@ -21,6 +21,7 @@ namespace Zero {
       void render();
 
       Entity createEntity();
+      void addToScene(Entity*);
 
     private:
       // Registry of entities for this scene.

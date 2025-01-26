@@ -6,10 +6,9 @@
 #include <filesystem>
 
 #include "ecs/components/transform.h"
-#include "renderable.h"
 
 namespace Zero {
-  class Sprite : public Renderable {
+  class Sprite {
     public:
       Sprite(const std::string& fileName) noexcept;
       ~Sprite() noexcept;

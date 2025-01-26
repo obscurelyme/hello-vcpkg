@@ -1,15 +1,22 @@
 #include "ecs/entity.h"
 
-namespace Zero {
-  Entity::Entity(EntityId id, Scene* scene) : id(id), scene(scene) {}
+#include <entt/entity/entity.hpp>
 
-  Entity::~Entity() {
-    // NOTE: remove this entity from all helper maps so that the lifetime methods aren't mistakenly invoked.
+namespace Zero {
+  Entity::Entity() : id(entt::null), scene(nullptr) { printTrace("Entity created via default constructor"); };
+
+  Entity::Entity(EntityId id, Scene* scene) : id(id), scene(scene) {
+    printTrace("Entity created via explicit constructor");
   }
 
-  void Entity::init() {}
-  void Entity::ready() {}
-  void Entity::update(float) {}
-  void Entity::physicsUpdate(float) {}
-  void Entity::destroy() {}
+  Entity::Entity(const Entity& other) : id(other.id), scene(other.scene) {
+    printTrace("Entity created via copy constructor");
+  }
+
+  Entity& Entity::operator=(const Entity& other) {
+    id = other.id;
+    scene = other.scene;
+    printTrace("Entity created via copy assignment");
+    return *this;
+  }
 }  // namespace Zero

@@ -10,10 +10,12 @@
 #include <string>
 
 #include "args/args.h"
+#include "ecs/components/nativescript.h"
 #include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
 #include "ecs/entity.h"
 #include "errors/errors.h"
+#include "game/entities/player.h"
 #include "monitors/monitors.h"
 #include "scene/scene.h"
 
@@ -55,11 +57,7 @@ int main(int argc, char* argv[]) {
     Zero::Entity player = scene->createEntity();
     player.addComponent<Zero::Sprite>("spaceship.png");
     player.addComponent<Zero::Transform2D>();
-
-    auto& transform = player.getComponent<Zero::Transform2D>();
-    auto& sprite = player.getComponent<Zero::Sprite>();
-    transform.position.y = 200;
-    transform.position.x = 100;
+    player.addComponent<Zero::NativeScript>().bind<Zero::Player>();
 
     float deltaTime = 0.0f;
     float fixedDeltaTime = 0.0f;
@@ -78,8 +76,6 @@ int main(int argc, char* argv[]) {
 
       // NOTE: Process updates for the active scene
       Zero::ProcessUpdates(deltaTime);
-      sprite.rotation += 50 * deltaTime;
-      transform.position.x += 200 * deltaTime;
 
       // NOTE: Process physics updates for the active scene if fixed timestep has passed
       fixedDeltaTime = Zero::ProcessPhysicsUpdates(fixedDeltaTime, fixedTargetDeltaTime);

@@ -32,6 +32,7 @@ set(SOURCES
   src/components/renderable.cpp
   src/components/transform.cpp
   src/components/sprite.cpp
+  src/components/nativescript.cpp
 )
 
 # Add assets folder
