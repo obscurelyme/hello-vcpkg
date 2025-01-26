@@ -58,6 +58,7 @@ int main(int argc, char* argv[]) {
 
     auto scene = Zero::CreateNewScene();
     Zero::SetActiveScene(scene);
+    editor.setScene(scene.get());
 
     Zero::Entity player = scene->createEntity();
     player.addComponent<Zero::Sprite>("spaceship.png");
@@ -88,10 +89,14 @@ int main(int argc, char* argv[]) {
       // NOTE: rendering...
       BeginDrawing();
       ClearBackground(BLACK);
-      DrawFPS(0, 0);
 
       // NOTE: Process renders for the active scene
       Zero::Render();
+
+      if (IsKeyPressed(KEY_GRAVE)) {
+        editor.toggle();
+      }
+      editor.draw();
 
       // NOTE: Process GUI for the active scene
       // Zero::ProcessGUI();
