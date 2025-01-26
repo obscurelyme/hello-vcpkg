@@ -1,6 +1,7 @@
 #ifndef ZERO_ECS_ENTITY_H_
 #define ZERO_ECS_ENTITY_H_
 
+#include <entt/entt.hpp>
 #include <string>
 
 #include "ecs/components/component.h"
@@ -19,6 +20,8 @@ namespace Zero {
       void addComponent(const SharedComponent& component);
       void removeComponent(const SharedComponent& component);
       SharedComponent getComponent(const ComponentType& type);
+      // template <typename T>
+      // bool hasComponent() {}
 
       // uuid string
       std::string entityId;

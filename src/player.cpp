@@ -4,13 +4,14 @@
 
 #include <memory>
 
+#include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
-#include "textures/textures.h"
+
 
 Zero::Player::Player() : Zero::Entity() {}
 
 void Zero::Player::init() {
-  this->spaceship = std::make_shared<Zero::Texture2D>("spaceship.png");
+  this->spaceship = std::make_shared<Zero::Sprite>("spaceship.png");
   this->transform = std::make_shared<Zero::Transform2D>();
 
   // create more entities here...

@@ -1,5 +1,5 @@
 {
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
   "name": "hello-raylib",
-  "dependencies": ["fmt", "raylib", "spdlog", "argparse", "boost-uuid"]
+  "dependencies": ["fmt", "raylib", "spdlog", "argparse", "boost-uuid", "entt"]
 }
