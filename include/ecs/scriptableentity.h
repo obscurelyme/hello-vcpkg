@@ -4,18 +4,17 @@
 #include <fmt/base.h>
 #include <fmt/format.h>
 
-#include "Logging/core.hpp"
-#include "entity.h"
+#include <string>
+
+#include "ecs/entity.h"
 
 namespace Zero {
   class ScriptableEntity {
     public:
-      ScriptableEntity() : entity({entt::null, nullptr}) {
-        ConsoleTrace(fmt::format(fmt::runtime("SCRIPTABLE ENTITY: {}"), "Created"));
-      }
-      virtual ~ScriptableEntity() { ConsoleTrace(fmt::format(fmt::runtime("SCRIPTABLE ENTITY: {}"), "Destroyed")); };
+      ScriptableEntity();
+      virtual ~ScriptableEntity();
 
-      virtual std::string scriptName() { return "ScriptableEntity"; }
+      virtual std::string scriptName();
 
       // NOTE: this is how it will actually be
     protected:
