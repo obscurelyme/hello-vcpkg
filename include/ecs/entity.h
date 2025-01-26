@@ -14,6 +14,7 @@ namespace Zero {
 
   class Entity {
     public:
+      Entity() = default;
       Entity(EntityId, Scene*);
       Entity(const Entity& other) = default;
       virtual ~Entity();
@@ -59,8 +60,8 @@ namespace Zero {
       }
 
     private:
-      EntityId id;
-      Scene* const scene;
+      EntityId id{entt::null};
+      Scene* const scene{nullptr};
   };  // namespace Zero
 }  // namespace Zero
 
