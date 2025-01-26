@@ -29,11 +29,10 @@ namespace Zero {
         return &entity.getComponent<T>();
       }
 
-      Entity entity;
-
       friend class Scene;
 
     private:
+      Entity entity;
       std::string uuid;
   };
 }  // namespace Zero

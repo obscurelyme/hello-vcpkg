@@ -20,20 +20,29 @@ find_package(glfw3 CONFIG REQUIRED) # We need this because we are statically lin
 find_package(EnTT CONFIG REQUIRED)
 
 # Source files
+set(ECS_BASE
+  src/ecs/entity.cpp
+  src/ecs/scriptableentity.cpp
+)
+
+set(ECS_COMPONENTS
+  src/ecs/components/component.cpp
+  src/ecs/components/renderable.cpp
+  src/ecs/components/transform.cpp
+  src/ecs/components/sprite.cpp
+  src/ecs/components/nativescript.cpp
+)
+
+set(ECS ${ECS_BASE} ${ECS_COMPONENTS})
+
 set(SOURCES
   src/main.cpp
   src/monitors.cpp
   src/args.cpp
-  src/entity.cpp
-  src/scriptableentity.cpp
   src/player.cpp
   src/uuid.cpp
   src/scene.cpp
-  src/components/component.cpp
-  src/components/renderable.cpp
-  src/components/transform.cpp
-  src/components/sprite.cpp
-  src/components/nativescript.cpp
+  ${ECS}
 )
 
 # Add assets folder
