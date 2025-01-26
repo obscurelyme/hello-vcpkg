@@ -3,7 +3,6 @@
 
 #include <fmt/format.h>
 
-#include <entt/entity/entity.hpp>
 #include <entt/entt.hpp>
 #include <stdexcept>
 
