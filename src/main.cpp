@@ -1,17 +1,21 @@
 #include <fmt/core.h>
+#include <fmt/format.h>
 #include <raylib.h>
 #include <raymath.h>
 
 #include <Logging/core.hpp>
+#include <entt/entity/fwd.hpp>
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
 #include "args/args.h"
-#include "ecs/ecs.h"
+#include "ecs/components/sprite.h"
+#include "ecs/components/transform.h"
+#include "ecs/entity.h"
 #include "errors/errors.h"
-#include "game/entities/player.h"
 #include "monitors/monitors.h"
+#include "scene/scene.h"
 
 void CleanUp() {
   CloseWindow();
@@ -45,49 +49,57 @@ int main(int argc, char* argv[]) {
       Zero::MonitorsManager::toggleFullscreen();
     }
 
-    Zero::EntityManager::Create();
+    auto scene = Zero::CreateNewScene();
+    Zero::SetActiveScene(scene);
+
+    Zero::Entity player = scene->createEntity();
+    player.addComponent<Zero::Sprite>("spaceship.png");
+    player.addComponent<Zero::Transform2D>();
+
+    auto& transform = player.getComponent<Zero::Transform2D>();
+    auto& sprite = player.getComponent<Zero::Sprite>();
+    transform.position.y = 200;
+    transform.position.x = 100;
+
     float deltaTime = 0.0f;
     float fixedDeltaTime = 0.0f;
     // 60 FPS fixed delta time
     float fixedTargetDeltaTime = 1.0f / 60.0f;
-
-    Zero::Player* player = new Zero::Player();
+    Zero::ConsoleTrace(fmt::format(fmt::runtime("Physics fixed timestep set to: {:f}"), fixedTargetDeltaTime));
 
     while (!WindowShouldClose()) {
       deltaTime = GetFrameTime();
       fixedDeltaTime += deltaTime;
 
-      // NOTE: Process new entity inits
+      // NOTE: Process new entity inits for the active scene
       Zero::ProcessInits();
-      // NOTE: Process new entity readys
+      // NOTE: Process new entity readys for the active scene
       Zero::ProcessReadies();
 
-      // NOTE: Process updates
-      for (auto it = Zero::entities.begin(); it != Zero::entities.end(); ++it) {
-        it->second->update(deltaTime);
-      }
+      // NOTE: Process updates for the active scene
+      Zero::ProcessUpdates(deltaTime);
+      sprite.rotation += 50 * deltaTime;
+      transform.position.x += 200 * deltaTime;
 
-      if (fixedDeltaTime >= fixedTargetDeltaTime) {
-        // Zero::ConsoleTrace(fmt::format("Physics update: {:f}", fixedDeltaTime));
-        // NOTE: Physics updates
-        for (auto it = Zero::entities.begin(); it != Zero::entities.end(); ++it) {
-          it->second->physicsUpdate(fixedDeltaTime);
-        }
-        fixedDeltaTime = 0.0f;
-      }
+      // NOTE: Process physics updates for the active scene if fixed timestep has passed
+      fixedDeltaTime = Zero::ProcessPhysicsUpdates(fixedDeltaTime, fixedTargetDeltaTime);
 
       // NOTE: rendering...
       BeginDrawing();
       ClearBackground(BLACK);
       DrawFPS(0, 0);
 
-      Zero::EntityManager::Render();
+      // NOTE: Process renders for the active scene
+      Zero::Render();
 
       EndDrawing();
+
+      // NOTE: Process destroys for the active scene
+      Zero::ProcessDestroys();
     }
 
-    delete player;
-    Zero::EntityManager::Destroy();
+    scene.reset();
+    Zero::SetActiveScene(nullptr);
     CleanUp();
 
     return 0;

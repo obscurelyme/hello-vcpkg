@@ -3,10 +3,9 @@
 
 #include <raylib.h>
 
+#include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
-#include "ecs/ecs.h"
 #include "ecs/entity.h"
-#include "textures/textures.h"
 
 namespace Zero {
   class Player : public Entity {
@@ -21,7 +20,7 @@ namespace Zero {
     private:
       Vector2 direction{.x = 0.0f, .y = 0.0f};
       float speed = 500.0f;
-      Shared<Texture2D> spaceship = nullptr;
+      Shared<Sprite> spaceship = nullptr;
       Shared<Transform2D> transform = nullptr;
   };
 }  // namespace Zero

@@ -17,20 +17,21 @@ find_package(Boost REQUIRED COMPONENTS uuid)
 find_package(argparse CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED) # We need this because we are statically linking raylib
+find_package(EnTT CONFIG REQUIRED)
 
 # Source files
 set(SOURCES
   src/main.cpp
-  src/textures.cpp
   src/monitors.cpp
   src/args.cpp
-  src/ecs.cpp
   src/entity.cpp
   src/player.cpp
   src/uuid.cpp
+  src/scene.cpp
   src/components/component.cpp
   src/components/renderable.cpp
   src/components/transform.cpp
+  src/components/sprite.cpp
 )
 
 # Add assets folder
@@ -52,7 +53,15 @@ add_subdirectory("libs/Logging")
 target_include_directories(RaylibPong PRIVATE include)
 
 # Link libraries
-target_link_libraries(RaylibPong PRIVATE raylib glfw winmm argparse::argparse Boost::uuid Logging)
+target_link_libraries(RaylibPong PRIVATE 
+  raylib 
+  glfw 
+  winmm 
+  argparse::argparse 
+  Boost::uuid 
+  Logging
+  EnTT::EnTT
+)
 
 # Compile definitions
 add_compile_definitions(RaylibPong PRIVATE ZERO_BUILD=${CMAKE_BUILD_TYPE})
