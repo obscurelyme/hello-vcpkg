@@ -14,6 +14,7 @@
 #include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
 #include "ecs/entity.h"
+#include "editor/gui/gui.h"
 #include "errors/errors.h"
 #include "game/entities/player.h"
 #include "monitors/monitors.h"
@@ -40,16 +41,20 @@ int main(int argc, char* argv[]) {
     Zero::MonitorsManager::toggleVsync(vsync);
     Zero::InitTraceLogSinks();
     SetTraceLogCallback(Zero::RaylibTraceCallback);
+    // SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(screenWidth, screenHeight, "Raylib Window");
     if (!IsWindowReady()) {
       Zero::ConsoleCrit("Raylib window was not initialized.");
       Zero::CleanTraceLogSinks();  // NOTE: Do not call CloseWindow because there is no window to close
       return Zero::Error::NoWindow;
     }
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetExitKey(KeyboardKey::KEY_ESCAPE);
     if (fullscreen) {
       Zero::MonitorsManager::toggleFullscreen();
     }
+
+    Zero::Editor editor;
 
     auto scene = Zero::CreateNewScene();
     Zero::SetActiveScene(scene);
@@ -87,6 +92,9 @@ int main(int argc, char* argv[]) {
 
       // NOTE: Process renders for the active scene
       Zero::Render();
+
+      // NOTE: Process GUI for the active scene
+      // Zero::ProcessGUI();
 
       EndDrawing();
 

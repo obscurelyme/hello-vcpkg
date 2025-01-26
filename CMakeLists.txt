@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Find packages
+find_path(RAYGUI_INCLUDE_DIRS "raygui.h")
 find_package(Boost REQUIRED COMPONENTS uuid)
 find_package(argparse CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
@@ -34,6 +35,7 @@ set(ECS_COMPONENTS
 )
 
 set(ECS ${ECS_BASE} ${ECS_COMPONENTS})
+set(EDITOR src/editor/gui/gui.cpp)
 
 set(SOURCES
   src/main.cpp
@@ -43,6 +45,7 @@ set(SOURCES
   src/uuid.cpp
   src/scene.cpp
   ${ECS}
+  ${EDITOR}
 )
 
 # Add assets folder
@@ -61,7 +64,7 @@ add_executable(RaylibPong ${SOURCES})
 add_subdirectory("libs/Logging")
 
 # Include directories
-target_include_directories(RaylibPong PRIVATE include)
+target_include_directories(RaylibPong PRIVATE ${RAYGUI_INCLUDE_DIRS} include)
 
 # Link libraries
 target_link_libraries(RaylibPong PRIVATE 

@@ -1,5 +1,6 @@
 #include "scene/scene.h"
 
+#include <raygui.h>
 #include <raylib.h>
 
 #include "Logging/core.hpp"
@@ -8,7 +9,6 @@
 #include "ecs/components/transform.h"
 #include "ecs/entity.h"
 #include "utils/memory.h"
-
 
 namespace Zero {
   Ref<Scene> activeScene;
@@ -36,6 +36,8 @@ namespace Zero {
   void ProcessDestroys() { activeScene->processDestroys(); }
 
   void Render() { activeScene->render(); }
+
+  void ProcessGUI() { GuiMessageBox(Rectangle{0, 0, 200, 200}, "Message Box", "This is an example message box", "Ok"); }
 
   Scene::Scene() {}
 

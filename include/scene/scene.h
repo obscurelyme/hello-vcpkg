@@ -39,6 +39,7 @@ namespace Zero {
   float ProcessPhysicsUpdates(float, float);
   void ProcessDestroys();
   void Render();
+  void ProcessGUI();
 }  // namespace Zero
 
 #endif
