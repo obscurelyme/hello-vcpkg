@@ -2,14 +2,13 @@
 
 #include <raylib.h>
 
-#include <entt/entity/fwd.hpp>
-
 #include "Logging/core.hpp"
 #include "ecs/components/nativescript.h"
 #include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
 #include "ecs/entity.h"
 #include "utils/memory.h"
+
 
 namespace Zero {
   Ref<Scene> activeScene;
