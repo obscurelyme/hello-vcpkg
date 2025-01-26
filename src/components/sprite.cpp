@@ -46,6 +46,13 @@ void Zero::Sprite::draw() noexcept {
 void Zero::Sprite::render() { this->draw(); }
 
 void Zero::Sprite::render(const Transform2D& transform) {
-  DrawTextureEx(this->texture, Vector2Add(transform.position, this->position), transform.rotation + this->rotation,
-                transform.scale * this->scale, this->tint);
+  // Draw with pro params
+  auto sourceRect =
+      Rectangle{.x = 0, .y = 0, .width = (float)this->texture.width, .height = (float)this->texture.height};
+  auto destRect = Rectangle{.x = transform.position.x,
+                            .y = transform.position.y,
+                            .width = (float)this->texture.width,
+                            .height = (float)this->texture.height};
+  auto origin = Vector2{.x = (float)this->texture.width / 2, .y = (float)this->texture.height / 2};
+  DrawTexturePro(this->texture, sourceRect, destRect, origin, transform.rotation + this->rotation, this->tint);
 }

@@ -7,8 +7,7 @@
 #include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
 
-
-Zero::Player::Player() : Zero::Entity() {}
+Zero::Player::Player() : Zero::Entity((Zero::EntityId)0, nullptr) {}
 
 void Zero::Player::init() {
   this->spaceship = std::make_shared<Zero::Sprite>("spaceship.png");
@@ -16,8 +15,8 @@ void Zero::Player::init() {
 
   // create more entities here...
 
-  this->addComponent(this->spaceship);
-  this->addComponent(this->transform);
+  // this->addComponent(this->spaceship);
+  // this->addComponent(this->transform);
 }
 
 void Zero::Player::ready() {}

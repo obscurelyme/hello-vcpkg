@@ -6,6 +6,8 @@
 #include "utils/memory.h"
 
 namespace Zero {
+  class Entity;
+
   class Scene {
     public:
       Scene();
@@ -16,14 +18,15 @@ namespace Zero {
       void processUpdates(float);
       void processPhysicsUpdates(float);
       void processDestroys();
+      void render();
 
-      entt::entity createEntity();
-      // Registry of entities for this scene.
-      entt::registry entityRegistry;
+      Entity createEntity();
 
-      // private:
+    private:
       // Registry of entities for this scene.
-      // entt::registry entityRegistry;
+      entt::registry registry;
+
+      friend class Entity;
   };
 
   Ref<Scene> CreateNewScene();

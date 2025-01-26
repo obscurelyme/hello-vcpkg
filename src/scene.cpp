@@ -7,6 +7,7 @@
 #include "Logging/core.hpp"
 #include "ecs/components/sprite.h"
 #include "ecs/components/transform.h"
+#include "ecs/entity.h"
 #include "utils/memory.h"
 
 namespace Zero {
@@ -34,13 +35,7 @@ namespace Zero {
 
   void ProcessDestroys() { activeScene->processDestroys(); }
 
-  void Render() {
-    auto view = activeScene->entityRegistry.view<Sprite, Transform2D>();
-    for (auto entity : view) {
-      // TODO: pass Sprite and Transform2D to a Renderer instance that will take care of rendering.
-      view.get<Sprite>(entity).render(view.get<Transform2D>(entity));
-    }
-  }
+  void Render() { activeScene->render(); }
 
   Scene::Scene() {
     // entt::entity entity = entityRegistry.create();
@@ -87,10 +82,18 @@ namespace Zero {
     // TODO: loop over every entity and call destroy
   }
 
-  entt::entity Scene::createEntity() { return entityRegistry.create(); }
+  void Scene::render() {
+    auto view = registry.view<Sprite, Transform2D>();
+    for (auto entity : view) {
+      // TODO: pass Sprite and Transform2D to a Renderer instance that will take care of rendering.
+      view.get<Sprite>(entity).render(view.get<Transform2D>(entity));
+    }
+  }
+
+  Entity Scene::createEntity() { return {registry.create(), this}; }
 
   Scene::~Scene() {
-    entityRegistry.clear();
+    registry.clear();
     ConsoleTrace("deleting scene");
   }
 
