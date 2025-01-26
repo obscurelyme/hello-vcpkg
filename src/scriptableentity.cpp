@@ -1,7 +1,10 @@
 #include "ecs/scriptableentity.h"
 
+#include "uuid/uuid.h"
+
+
 namespace Zero {
-  ScriptableEntity::ScriptableEntity() : entity({}) {
+  ScriptableEntity::ScriptableEntity() : entity({}), uuid(randomUUID()) {
     ConsoleTrace(fmt::format(fmt::runtime("SCRIPTABLE ENTITY: {}"), "Created"));
   }
 

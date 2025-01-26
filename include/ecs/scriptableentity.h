@@ -32,6 +32,9 @@ namespace Zero {
       Entity entity;
 
       friend class Scene;
+
+    private:
+      std::string uuid;
   };
 }  // namespace Zero
 

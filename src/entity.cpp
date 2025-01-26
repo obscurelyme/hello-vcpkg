@@ -2,21 +2,30 @@
 
 #include <entt/entity/entity.hpp>
 
-namespace Zero {
-  Entity::Entity() : id(entt::null), scene(nullptr) { printTrace("Entity created via default constructor"); };
+#include "uuid/uuid.h"
 
-  Entity::Entity(EntityId id, Scene* scene) : id(id), scene(scene) {
+namespace Zero {
+  Entity::Entity() : uuid(randomUUID()), id(entt::null), scene(nullptr) {
+    printTrace("Entity created via default constructor");
+  };
+
+  Entity::Entity(EntityId id, Scene* scene) : uuid(randomUUID()), id(id), scene(scene) {
     printTrace("Entity created via explicit constructor");
   }
 
-  Entity::Entity(const Entity& other) : id(other.id), scene(other.scene) {
+  Entity::Entity(const Entity& other) : uuid(other.uuid), id(other.id), scene(other.scene) {
     printTrace("Entity created via copy constructor");
   }
 
   Entity& Entity::operator=(const Entity& other) {
-    id = other.id;
-    scene = other.scene;
-    printTrace("Entity created via copy assignment");
+    if (this != &other) {
+      uuid = other.uuid;
+      id = other.id;
+      scene = other.scene;
+
+      printTrace("Entity copied");
+    }
+
     return *this;
   }
 }  // namespace Zero

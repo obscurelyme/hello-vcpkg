@@ -55,6 +55,7 @@ namespace Zero {
       }
 
     private:
+      std::string uuid;
       EntityId id{entt::null};
       Scene* scene{nullptr};
       inline static std::string resourceName{"ENTITY: {:s}"};
