@@ -8,6 +8,7 @@
     "spdlog",
     "argparse",
     "boost-uuid",
-    "entt"
+    "entt",
+    "imgui"
   ]
 }

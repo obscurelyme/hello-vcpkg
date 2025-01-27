@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Find packages
+find_package(imgui CONFIG REQUIRED)
 find_path(RAYGUI_INCLUDE_DIRS "raygui.h")
 find_package(Boost REQUIRED COMPONENTS uuid)
 find_package(argparse CONFIG REQUIRED)
@@ -37,6 +38,9 @@ set(ECS_COMPONENTS
 set(ECS ${ECS_BASE} ${ECS_COMPONENTS})
 set(EDITOR src/editor/gui/gui.cpp)
 
+set(VENDOR_SOURCE_DIR ${CMAKE_SOURCE_DIR}/vendors)
+set(rlImGuiSources ${VENDOR_SOURCE_DIR}/rlImGui/rlImGui.cpp)
+
 set(SOURCES
   src/main.cpp
   src/monitors.cpp
@@ -46,6 +50,8 @@ set(SOURCES
   src/scene.cpp
   ${ECS}
   ${EDITOR}
+
+  ${rlImGuiSources}
 )
 
 # Add assets folder
@@ -64,7 +70,9 @@ add_executable(RaylibPong ${SOURCES})
 add_subdirectory("libs/Logging")
 
 # Include directories
-target_include_directories(RaylibPong PRIVATE ${RAYGUI_INCLUDE_DIRS} include)
+set(VENDOR_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/vendors)
+set(rlImGuiIncludeDir ${VENDOR_INCLUDE_DIR}/rlImGui/include)
+target_include_directories(RaylibPong PRIVATE ${RAYGUI_INCLUDE_DIRS} ${rlImGuiIncludeDir} include)
 
 # Link libraries
 target_link_libraries(RaylibPong PRIVATE 
@@ -75,6 +83,7 @@ target_link_libraries(RaylibPong PRIVATE
   Boost::uuid 
   Logging
   EnTT::EnTT
+  imgui::imgui
 )
 
 # Compile definitions
