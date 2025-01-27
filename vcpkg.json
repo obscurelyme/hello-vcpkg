@@ -8,6 +8,7 @@
     "argparse",
     "boost-uuid",
     "entt",
-    "imgui"
+    "imgui",
+    "yoga"
   ]
 }

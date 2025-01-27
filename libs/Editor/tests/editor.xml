@@ -1,0 +1,11 @@
+<Editor>
+  <GuiWindow title="Scenes" height="100%" width="20%" top="" left="" resizeable="true">
+    <GuiList>
+      <GuiListItem title="Scene 1" />
+      <GuiListItem title="Scene 2" />
+      <GuiListItem title="Scene 3" />
+    </GuiList>
+  </GuiWindow>
+  <GuiWindow title="Viewport" height="" width="" top="" left="" />
+  <GuiWindow title="Console" height="" width="" top="" left="" />
+</Editor>

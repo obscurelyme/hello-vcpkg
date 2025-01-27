@@ -1,0 +1,38 @@
+Editor:
+  - GuiWindow:
+    top: 0
+    left: 0
+    width: 800
+    height: 600
+    title: "Scenes"
+    chilren:
+      - GuiButton:
+        top: 0
+        left: 0
+        width: 100
+        height: 30
+        text: "New Scene"
+      - GuiButton:
+        top: 0
+        left: 0
+        width: 100
+        height: 30
+        text: "Open Scene"
+      - GuiButton:
+        top: 0
+        left: 0
+        width: 100
+        height: 30
+        text: "Save Scene"
+  - GuiWindow:
+    top: 0
+    left: 0
+    width: 800
+    height: 600
+    title: "Viewport"
+  - GuiWindow:
+    top: 0
+    left: 0
+    width: 800
+    height: 600
+    title: "Console"
