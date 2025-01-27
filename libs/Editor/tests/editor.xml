@@ -1,11 +1,10 @@
 <Editor>
-  <GuiWindow title="Scenes" height="100%" width="20%" top="" left="" resizeable="true">
-    <GuiList>
-      <GuiListItem title="Scene 1" />
-      <GuiListItem title="Scene 2" />
-      <GuiListItem title="Scene 3" />
-    </GuiList>
-  </GuiWindow>
-  <GuiWindow title="Viewport" height="" width="" top="" left="" />
-  <GuiWindow title="Console" height="" width="" top="" left="" />
+  <GuiAppBar title="Application" />
+
+  <GuiPanel title="Test panel #1" />
+  <GuiPanel title="Test panel #2" />
+
+  <GuiView height="100%" width="100%">
+    <GuiPanel title="Test panel #3" />
+  </GuiView>
 </Editor>

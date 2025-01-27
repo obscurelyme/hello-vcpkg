@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <string>
 
+#include "Editor/types.h"
 #include "args/args.h"
 #include "ecs/components/nativescript.h"
 #include "ecs/components/sprite.h"
@@ -72,15 +73,23 @@ int main(int argc, char* argv[]) {
     Zero::GuiPanel panel1{"Test Panel #1"};
     Zero::GuiPanel panel2{"Test Panel #2"};
     Zero::GuiPanel panel3{"Test Panel #3"};
+
     Zero::GuiViewInput viewInput{true, true, 100, 100};
     Zero::GuiView view{viewInput};
-    Zero::Flex flexStyles{Zero::FlexDirection::YGFlexDirectionColumn, Zero::FlexAlign::YGAlignCenter,
-                          Zero::FlexJustify::YGJustifyCenter};
+    Zero::Flex flexStyles;
+    flexStyles.flexDirection = Zero::FlexDirection::YGFlexDirectionColumn;
+    flexStyles.flexAlign = Zero::FlexAlign::YGAlignCenter;
+    flexStyles.flexJustify = Zero::FlexJustify::YGJustifyCenter;
     view.setFlexStyles(flexStyles);
+
     panel1.setHeight(500);
     panel1.setWidth(200);
-    // editor.root.addChild(&panel2);
-    // editor.root.addChild(&panel1);
+    Zero::Margin margin;
+    margin.left = 10;
+    panel1.setMargin(margin);
+
+    editor.root.addChild(&panel2);
+    editor.root.addChild(&panel1);
     editor.root.addChild(&view);
     view.addChild(&panel3);
 

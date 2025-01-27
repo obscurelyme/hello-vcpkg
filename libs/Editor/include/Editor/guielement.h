@@ -11,9 +11,10 @@ namespace Zero {
     public:
       explicit GuiElement();
       virtual ~GuiElement();
+
       virtual void draw();
-      virtual void setWidth(float width);
-      virtual void setHeight(float height);
+      virtual void setWidth(float width, bool percent = false);
+      virtual void setHeight(float height, bool percent = false);
 
       virtual float getWidth();
       virtual float getHeight();
@@ -24,6 +25,10 @@ namespace Zero {
       virtual void removeChild(GuiElement* element);
       virtual void drawChildren();
       virtual void setFlexStyles(const Flex&);
+      virtual void setStyles(const Styles&);
+      virtual void setBorder(const Border&);
+      virtual void setMargin(const Margin&);
+      virtual void setPadding(const Padding&);
 
       YGNodeRef node{nullptr};
   };
