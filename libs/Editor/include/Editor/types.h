@@ -27,61 +27,61 @@ namespace Zero {
   // Flex input options for GuiElements
   class Flex {
     public:
-      std::optional<FlexDirection> flexDirection;
-      std::optional<FlexAlign> flexAlign;
-      std::optional<FlexJustify> flexJustify;
-      std::optional<float> flexBasis;
-      std::optional<float> flex;
-      std::optional<float> flexGrow;
-      std::optional<float> flexShrink;
-      std::optional<FlexWrap> flexWrap;
-      std::optional<bool> useFlexBasisPercent;
-      std::optional<bool> flexBasisAuto;
-      std::optional<float> gap;
-      std::optional<float> gapRow;
-      std::optional<float> gapColumn;
+      std::optional<FlexDirection> flexDirection{std::nullopt};
+      std::optional<FlexAlign> flexAlign{std::nullopt};
+      std::optional<FlexJustify> flexJustify{std::nullopt};
+      std::optional<float> flexBasis{std::nullopt};
+      std::optional<float> flex{std::nullopt};
+      std::optional<float> flexGrow{std::nullopt};
+      std::optional<float> flexShrink{std::nullopt};
+      std::optional<FlexWrap> flexWrap{std::nullopt};
+      std::optional<bool> useFlexBasisPercent{std::nullopt};
+      std::optional<bool> flexBasisAuto{std::nullopt};
+      std::optional<float> gap{std::nullopt};
+      std::optional<float> gapRow{std::nullopt};
+      std::optional<float> gapColumn{std::nullopt};
   };
 
   class Border {
     public:
-      std::optional<float> all;
-      std::optional<float> top;
-      std::optional<float> right;
-      std::optional<float> bottom;
-      std::optional<float> left;
+      std::optional<float> all{std::nullopt};
+      std::optional<float> top{std::nullopt};
+      std::optional<float> right{std::nullopt};
+      std::optional<float> bottom{std::nullopt};
+      std::optional<float> left{std::nullopt};
   };
 
   class Margin {
     public:
-      std::optional<float> all;
-      std::optional<float> top;
-      std::optional<float> right;
-      std::optional<float> bottom;
-      std::optional<float> left;
+      std::optional<float> all{std::nullopt};
+      std::optional<float> top{std::nullopt};
+      std::optional<float> right{std::nullopt};
+      std::optional<float> bottom{std::nullopt};
+      std::optional<float> left{std::nullopt};
   };
 
   class Padding {
     public:
-      std::optional<float> all;
-      std::optional<float> top;
-      std::optional<float> right;
-      std::optional<float> bottom;
-      std::optional<float> left;
+      std::optional<float> all{std::nullopt};
+      std::optional<float> top{std::nullopt};
+      std::optional<float> right{std::nullopt};
+      std::optional<float> bottom{std::nullopt};
+      std::optional<float> left{std::nullopt};
   };
 
   // Style input options for GuiElements
   class Styles {
     public:
-      std::optional<float> width;
-      std::optional<float> height;
-      std::optional<float> maxWidth;
-      std::optional<float> maxHeight;
-      std::optional<float> minWidth;
-      std::optional<float> minHeight;
+      std::optional<float> width{std::nullopt};
+      std::optional<float> height{std::nullopt};
+      std::optional<float> maxWidth{std::nullopt};
+      std::optional<float> maxHeight{std::nullopt};
+      std::optional<float> minWidth{std::nullopt};
+      std::optional<float> minHeight{std::nullopt};
 
-      std::optional<Border> border;
-      std::optional<Margin> margin;
-      std::optional<Padding> padding;
+      std::optional<Border> border{std::nullopt};
+      std::optional<Margin> margin{std::nullopt};
+      std::optional<Padding> padding{std::nullopt};
   };
 
   ImVec4 convertColor(const ::Color& color);

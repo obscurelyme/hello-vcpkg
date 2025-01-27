@@ -76,16 +76,14 @@ int main(int argc, char* argv[]) {
 
     Zero::GuiViewInput viewInput{true, true, 100, 100};
     Zero::GuiView view{viewInput};
-    Zero::Flex flexStyles;
-    flexStyles.flexDirection = Zero::FlexDirection::YGFlexDirectionColumn;
-    flexStyles.flexAlign = Zero::FlexAlign::YGAlignCenter;
-    flexStyles.flexJustify = Zero::FlexJustify::YGJustifyCenter;
+    Zero::Flex flexStyles{.flexDirection = Zero::FlexDirection::YGFlexDirectionColumn,
+                          .flexAlign = Zero::FlexAlign::YGAlignCenter,
+                          .flexJustify = Zero::FlexJustify::YGJustifyCenter};
     view.setFlexStyles(flexStyles);
 
     panel1.setHeight(500);
     panel1.setWidth(200);
-    Zero::Margin margin;
-    margin.left = 10;
+    Zero::Margin margin{.left = 10};
     panel1.setMargin(margin);
 
     editor.root.addChild(&panel2);

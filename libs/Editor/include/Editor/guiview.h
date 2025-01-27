@@ -9,9 +9,9 @@ namespace Zero {
   class GuiViewInput {
     public:
       // Interpret the height value as a percent.
-      std::optional<bool> useHeightPercent;
+      std::optional<bool> useHeightPercent{std::nullopt};
       // Interpret the width value as a percent.
-      std::optional<bool> useWidthPercent;
+      std::optional<bool> useWidthPercent{std::nullopt};
       float height;
       float width;
   };
