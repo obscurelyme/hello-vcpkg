@@ -13,11 +13,31 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Find packages
+find_package(imgui CONFIG REQUIRED)
 find_package(Boost REQUIRED COMPONENTS uuid)
 find_package(argparse CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED) # We need this because we are statically linking raylib
 find_package(EnTT CONFIG REQUIRED)
+
+# # FetchContent
+# include(FetchContent)
+# FetchContent_Declare(
+#   rlImGui
+#   GIT_REPOSITORY https://github.com/raylib-extras/rlImGui.git
+#   GIT_TAG        583d4fea67e67d431319974f0625f680d3840dfb
+# )
+# FetchContent_MakeAvailable(rlImGui)
+# FetchContent_GetProperties(rlImGui SOURCE_DIR rlImGui_SOURCE_DIR)
+
+# add_library(rlimgui STATIC ${rlimgui_SOURCE_DIR}/rlImgui.cpp)
+# target_link_libraries(rlimgui PRIVATE 
+#   imgui::imgui 
+#   glfw 
+#   winmm 
+#   raylib
+# )
+# target_include_directories(rlimgui INTERFACE ${rlimgui_SOURCE_DIR})
 
 # Source files
 set(ECS_BASE
@@ -59,6 +79,7 @@ add_executable(RaylibPong ${SOURCES})
 
 # Add submodules
 add_subdirectory("libs/Logging")
+add_subdirectory("libs/RlImgui")
 
 # Include directories
 target_include_directories(RaylibPong PRIVATE include)
@@ -72,10 +93,12 @@ target_link_libraries(RaylibPong PRIVATE
   Boost::uuid 
   Logging
   EnTT::EnTT
+  RlImgui
+  imgui::imgui
 )
 
 # Compile definitions
-add_compile_definitions(RaylibPong PRIVATE ZERO_BUILD=${CMAKE_BUILD_TYPE})
+add_compile_definitions(RaylibPong PRIVATE ZERO_BUILD=${CMAKE_BUILD_TYPE} BUILD_LIBTYPE_SHARED)
 
 # Compiler options, enable all warnings
 if (MSVC)

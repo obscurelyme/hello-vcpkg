@@ -1,7 +1,9 @@
 #include <fmt/core.h>
 #include <fmt/format.h>
+#include <imgui.h>
 #include <raylib.h>
 #include <raymath.h>
+#include <rlImGui.h>
 
 #include <Logging/core.hpp>
 #include <entt/entity/fwd.hpp>
@@ -65,6 +67,9 @@ int main(int argc, char* argv[]) {
     float fixedTargetDeltaTime = 1.0f / 60.0f;
     Zero::ConsoleTrace(fmt::format(fmt::runtime("Physics fixed timestep set to: {:f}"), fixedTargetDeltaTime));
 
+    rlImGuiSetup(true);
+    bool open = true;
+
     while (!WindowShouldClose()) {
       deltaTime = GetFrameTime();
       fixedDeltaTime += deltaTime;
@@ -88,12 +93,17 @@ int main(int argc, char* argv[]) {
       // NOTE: Process renders for the active scene
       Zero::Render();
 
+      rlImGuiBegin();
+      ImGui::ShowDemoWindow(&open);
+      rlImGuiEnd();
+
       EndDrawing();
 
       // NOTE: Process destroys for the active scene
       Zero::ProcessDestroys();
     }
 
+    rlImGuiShutdown();
     scene.reset();
     Zero::SetActiveScene(nullptr);
     CleanUp();
