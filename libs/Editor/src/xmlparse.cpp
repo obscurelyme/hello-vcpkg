@@ -68,14 +68,17 @@ namespace Zero {
 
   const std::filesystem::path editorFilePath = appDir / resourcesPath / guiPath / editorFile;
 
-  XmlParse::XmlParse() {
+  XmlParse::XmlParse() { readFile(); }
+
+  XmlParse::~XmlParse() { doc.Clear(); }
+
+  void XmlParse::readFile() {
+    doc.Clear();
     auto err = doc.LoadFile(editorFilePath.string().c_str());
     if (err != tinyxml2::XML_SUCCESS) {
       fmt::println("XMLPARSE: Failed to load editor.xml file");
     }
   }
-
-  XmlParse::~XmlParse() { doc.Clear(); }
 
   void XmlParse::unmarshal(GuiRoot* guiRoot) {
     auto root = doc.RootElement();

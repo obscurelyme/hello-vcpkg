@@ -1,8 +1,12 @@
 #ifndef ZERONN_EDITOR_CORE_H_
 #define ZERONN_EDITOR_CORE_H_
 
+#include <memory>
+
+#include "Editor/filewatcher.h"
 #include "Editor/guiroot.h"
 #include "Editor/xmlparse.h"
+
 
 namespace Zero {
   class Editor {
@@ -16,8 +20,10 @@ namespace Zero {
       void endRender();
       void render();
 
-      GuiRoot root;
+      std::function<void()> onFileChanged;
+      std::shared_ptr<GuiRoot> root{nullptr};
       XmlParse xmlParse;
+      FileWatcher fileWatcher;
   };
 }  // namespace Zero
 

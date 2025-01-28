@@ -12,6 +12,7 @@ namespace Zero {
       explicit XmlParse();
       ~XmlParse();
 
+      void readFile();
       void unmarshal(GuiRoot* root);
       GuiElement* process(GuiRoot* root, tinyxml2::XMLElement* element, int depth = 0);
 

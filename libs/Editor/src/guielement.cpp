@@ -7,7 +7,14 @@
 namespace Zero {
   GuiElement::GuiElement() : node(YGNodeNew()), title(""), id("") {}
 
-  GuiElement::~GuiElement() { YGNodeFree(node); }
+  GuiElement::~GuiElement() {
+    for (size_t i = 0; i < YGNodeGetChildCount(node); i++) {
+      auto childNode = YGNodeGetChild(node, i);
+      GuiElement* child = static_cast<GuiElement*>(YGNodeGetContext(childNode));
+      delete child;
+    }
+    YGNodeFree(node);
+  }
 
   void GuiElement::drawChildren() {
     for (size_t i = 0; i < YGNodeGetChildCount(node); i++) {
@@ -225,14 +232,20 @@ namespace Zero {
     children.erase(std::find(children.begin(), children.end(), element));
     element->parent = nullptr;
   }
-  void GuiElement::setTitle(const std::string& t) { title = t; }
+  void GuiElement::setTitle(const std::string& t) {
+    // NOTE: set the title
+    title = t;
+  }
 
   void GuiElement::calculate() {
     calculateSize();
     calculatePosition();
   }
 
-  void GuiElement::calculateSize() {}
+  void GuiElement::calculateSize() {
+    calculatedSize.x = getWidth();
+    calculatedSize.y = getHeight();
+  }
 
   void GuiElement::calculatePosition() {
     auto parent = this->parent;
