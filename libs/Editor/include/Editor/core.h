@@ -1,12 +1,8 @@
 #ifndef ZERONN_EDITOR_CORE_H_
 #define ZERONN_EDITOR_CORE_H_
 
-#include "Editor/guiappbar.h"
-#include "Editor/guielement.h"
-#include "Editor/guipanel.h"
 #include "Editor/guiroot.h"
-#include "Editor/guiview.h"
-#include "Editor/types.h"
+#include "Editor/xmlparse.h"
 
 namespace Zero {
   class Editor {
@@ -21,6 +17,7 @@ namespace Zero {
       void render();
 
       GuiRoot root;
+      XmlParse xmlParse;
   };
 }  // namespace Zero
 

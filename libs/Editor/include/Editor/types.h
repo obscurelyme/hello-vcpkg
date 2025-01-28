@@ -74,10 +74,18 @@ namespace Zero {
     public:
       std::optional<float> width{std::nullopt};
       std::optional<float> height{std::nullopt};
+      std::optional<bool> widthIsPercent{false};
+      std::optional<bool> heightIsPercent{false};
+
       std::optional<float> maxWidth{std::nullopt};
       std::optional<float> maxHeight{std::nullopt};
+      std::optional<bool> maxWidthIsPercent{false};
+      std::optional<bool> maxHeightIsPercent{false};
+
       std::optional<float> minWidth{std::nullopt};
       std::optional<float> minHeight{std::nullopt};
+      std::optional<bool> minWidthIsPercent{false};
+      std::optional<bool> minHeightIsPercent{false};
 
       std::optional<Border> border{std::nullopt};
       std::optional<Margin> margin{std::nullopt};
@@ -85,6 +93,50 @@ namespace Zero {
   };
 
   ImVec4 convertColor(const ::Color& color);
+
+  enum class Attribute {
+    Unknown,
+    Id,
+    Title,
+
+    Width,
+    Height,
+    MaxWidth,
+    MaxHeight,
+    MinWidth,
+    MinHeight,
+
+    Border,
+    BorderTop,
+    BorderRight,
+    BorderBottom,
+    BorderLeft,
+
+    Margin,
+    MarginTop,
+    MarginRight,
+    MarginBottom,
+    MarginLeft,
+
+    Padding,
+    PaddingTop,
+    PaddingRight,
+    PaddingBottom,
+    PaddingLeft,
+
+    FlexDirection,
+    FlexAlign,
+    FlexJustify,
+    FlexBasis,
+    FlexBasisAuto,
+    Flex,
+    FlexGrow,
+    FlexShrink,
+    FlexWrap,
+    Gap,
+    GapRow,
+    GapColumn
+  };
 }  // namespace Zero
 
 #endif  // ZERO_EDITOR_TYPES_H_

@@ -8,12 +8,11 @@
 namespace Zero {
   class GuiPanel : public GuiElement {
     public:
-      explicit GuiPanel(const std::string&);
+      explicit GuiPanel(const std::string& str = "");
       ~GuiPanel() = default;
 
       void draw() override;
 
-      std::string title{""};
       bool open{true};
       ImVec2 position{0, 0};
       ImVec2 size{250, 250};

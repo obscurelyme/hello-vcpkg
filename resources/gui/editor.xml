@@ -1,0 +1,8 @@
+<View id="core-view" flexDirection="row" height="100%" width="100%" gap="50">
+  <Panel id="scene-panel" title="Scenes" height="100%" width="300" />
+  <View id="central-view" flexDirection="column" height="100%" flexGrow="1">
+    <Panel id="viewport-panel" title="Viewport" flexGrow="1" width="100%" />
+    <Panel id="console-panel" title="Console" height="300" width="100%" />
+  </View>
+  <Panel id="entities-panel" title="Entities" height="100%" width="300" />
+</View>

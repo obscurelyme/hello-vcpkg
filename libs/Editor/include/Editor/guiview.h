@@ -18,8 +18,11 @@ namespace Zero {
 
   class GuiView : public GuiElement {
     public:
-      explicit GuiView(const GuiViewInput&);
+      GuiView();
+      GuiView(const GuiViewInput&);
       ~GuiView() = default;
+
+      void draw() override;
   };
 }  // namespace Zero
 

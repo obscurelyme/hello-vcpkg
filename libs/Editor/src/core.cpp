@@ -11,6 +11,8 @@ namespace Zero {
     style.Colors[ImGuiCol_TitleBgActive] = convertColor(OfficeBlue);
     style.Colors[ImGuiCol_TitleBgCollapsed] = convertColor(OfficeBlue);
     style.Colors[ImGuiCol_Text] = convertColor(OffWhite);
+
+    xmlParse.unmarshal(&root);
   }
 
   Editor::~Editor() { cleanUp(); }

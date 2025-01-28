@@ -9,6 +9,7 @@
     "boost-uuid",
     "entt",
     "imgui",
-    "yoga"
+    "yoga",
+    "tinyxml2"
   ]
 }

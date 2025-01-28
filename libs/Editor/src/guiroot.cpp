@@ -1,5 +1,7 @@
 #include "Editor/guiroot.h"
 
+#include <YGConfig.h>
+
 namespace Zero {
   GuiRoot::GuiRoot() {
     // Set the root node to the size of the screen

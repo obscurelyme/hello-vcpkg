@@ -2,8 +2,10 @@
 
 #include <YGNodeStyle.h>
 
+#include <algorithm>
+
 namespace Zero {
-  GuiElement::GuiElement() : node(YGNodeNew()) {}
+  GuiElement::GuiElement() : node(YGNodeNew()), title(""), id("") {}
 
   GuiElement::~GuiElement() { YGNodeFree(node); }
 
@@ -62,27 +64,51 @@ namespace Zero {
 
   void GuiElement::setStyles(const Styles& styles) {
     if (styles.height.has_value()) {
-      YGNodeStyleSetHeight(node, styles.height.value());
+      if (styles.heightIsPercent.has_value() && styles.heightIsPercent.value()) {
+        YGNodeStyleSetHeightPercent(node, styles.height.value());
+      } else {
+        YGNodeStyleSetHeight(node, styles.height.value());
+      }
     }
 
     if (styles.width.has_value()) {
-      YGNodeStyleSetWidth(node, styles.width.value());
+      if (styles.widthIsPercent.has_value() && styles.widthIsPercent.value()) {
+        YGNodeStyleSetWidthPercent(node, styles.width.value());
+      } else {
+        YGNodeStyleSetWidth(node, styles.width.value());
+      }
     }
 
     if (styles.maxHeight.has_value()) {
-      YGNodeStyleSetMaxHeight(node, styles.maxHeight.value());
+      if (styles.maxHeightIsPercent.has_value() && styles.maxHeightIsPercent.value()) {
+        YGNodeStyleSetMaxHeightPercent(node, styles.maxHeight.value());
+      } else {
+        YGNodeStyleSetMaxHeight(node, styles.maxHeight.value());
+      }
     }
 
     if (styles.maxWidth.has_value()) {
-      YGNodeStyleSetMaxWidth(node, styles.maxWidth.value());
+      if (styles.maxWidthIsPercent.has_value() && styles.maxWidthIsPercent.value()) {
+        YGNodeStyleSetMaxWidthPercent(node, styles.maxWidth.value());
+      } else {
+        YGNodeStyleSetMaxWidth(node, styles.maxWidth.value());
+      }
     }
 
     if (styles.minHeight.has_value()) {
-      YGNodeStyleSetMinHeight(node, styles.minHeight.value());
+      if (styles.minHeightIsPercent.has_value() && styles.minHeightIsPercent.value()) {
+        YGNodeStyleSetMinHeightPercent(node, styles.minHeight.value());
+      } else {
+        YGNodeStyleSetMinHeight(node, styles.minHeight.value());
+      }
     }
 
     if (styles.minWidth.has_value()) {
-      YGNodeStyleSetMinWidth(node, styles.minWidth.value());
+      if (styles.minWidthIsPercent.has_value() && styles.minWidthIsPercent.value()) {
+        YGNodeStyleSetMinWidthPercent(node, styles.minWidth.value());
+      } else {
+        YGNodeStyleSetMinWidth(node, styles.minWidth.value());
+      }
     }
 
     if (styles.border.has_value()) {
@@ -164,7 +190,10 @@ namespace Zero {
     }
   }
 
-  void GuiElement::draw() { drawChildren(); }
+  void GuiElement::draw() {
+    calculate();
+    drawChildren();
+  }
 
   void GuiElement::setWidth(float width, bool percent) {
     if (percent) {
@@ -186,6 +215,30 @@ namespace Zero {
   float GuiElement::getTop() { return YGNodeLayoutGetTop(node); }
   float GuiElement::getLeft() { return YGNodeLayoutGetLeft(node); }
 
-  void GuiElement::addChild(GuiElement* element) { YGNodeInsertChild(node, element->node, YGNodeGetChildCount(node)); }
-  void GuiElement::removeChild(GuiElement* element) { YGNodeRemoveChild(node, element->node); }
+  void GuiElement::addChild(GuiElement* element) {
+    YGNodeInsertChild(node, element->node, YGNodeGetChildCount(node));
+    children.push_back(element);
+    element->parent = this;
+  }
+  void GuiElement::removeChild(GuiElement* element) {
+    YGNodeRemoveChild(node, element->node);
+    children.erase(std::find(children.begin(), children.end(), element));
+    element->parent = nullptr;
+  }
+  void GuiElement::setTitle(const std::string& t) { title = t; }
+
+  void GuiElement::calculate() {
+    calculateSize();
+    calculatePosition();
+  }
+
+  void GuiElement::calculateSize() {}
+
+  void GuiElement::calculatePosition() {
+    auto parent = this->parent;
+    if (parent) {
+      calculatedPosition.x = getLeft() + parent->calculatedPosition.x;
+      calculatedPosition.y = getTop() + parent->calculatedPosition.y;
+    }
+  }
 }  // namespace Zero

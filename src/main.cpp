@@ -1,4 +1,4 @@
-#include <Editor/core.h>
+#include <Editor/pch.h>
 #include <fmt/core.h>
 #include <fmt/format.h>
 #include <imgui.h>
@@ -70,26 +70,26 @@ int main(int argc, char* argv[]) {
     Zero::ConsoleTrace(fmt::format(fmt::runtime("Physics fixed timestep set to: {:f}"), fixedTargetDeltaTime));
 
     Zero::Editor editor;
-    Zero::GuiPanel panel1{"Test Panel #1"};
-    Zero::GuiPanel panel2{"Test Panel #2"};
-    Zero::GuiPanel panel3{"Test Panel #3"};
+    // Zero::GuiPanel panel1{"Test Panel #1"};
+    // Zero::GuiPanel panel2{"Test Panel #2"};
+    // Zero::GuiPanel panel3{"Test Panel #3"};
 
-    Zero::GuiViewInput viewInput{true, true, 100, 100};
-    Zero::GuiView view{viewInput};
-    Zero::Flex flexStyles{.flexDirection = Zero::FlexDirection::YGFlexDirectionColumn,
-                          .flexAlign = Zero::FlexAlign::YGAlignCenter,
-                          .flexJustify = Zero::FlexJustify::YGJustifyCenter};
-    view.setFlexStyles(flexStyles);
+    // Zero::GuiViewInput viewInput{true, true, 100, 100};
+    // Zero::GuiView view{viewInput};
+    // Zero::Flex flexStyles{.flexDirection = Zero::FlexDirection::YGFlexDirectionColumn,
+    //                       .flexAlign = Zero::FlexAlign::YGAlignCenter,
+    //                       .flexJustify = Zero::FlexJustify::YGJustifyCenter};
+    // view.setFlexStyles(flexStyles);
 
-    panel1.setHeight(500);
-    panel1.setWidth(200);
-    Zero::Margin margin{.left = 10};
-    panel1.setMargin(margin);
+    // panel1.setHeight(500);
+    // panel1.setWidth(200);
+    // Zero::Margin margin{.left = 10};
+    // panel1.setMargin(margin);
 
-    editor.root.addChild(&panel2);
-    editor.root.addChild(&panel1);
-    editor.root.addChild(&view);
-    view.addChild(&panel3);
+    // editor.root.addChild(&panel2);
+    // editor.root.addChild(&panel1);
+    // editor.root.addChild(&view);
+    // view.addChild(&panel3);
 
     // Zero::AppBar appBar{"Application"};
 

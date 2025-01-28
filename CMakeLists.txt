@@ -46,13 +46,20 @@ set(SOURCES
   ${ECS}
 )
 
-# Add assets folder
+# Add assets and resources folder
 set(ASSETS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/assets)
 set(ASSETS_DEST_DIR ${CMAKE_BINARY_DIR}/assets)
 add_custom_target(Assets ALL 
   COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different 
   ${ASSETS_SOURCE_DIR} ${ASSETS_DEST_DIR} 
   COMMENT "Copying assets to build directory"
+)
+set(RESOURCES_SOURCE_DIR ${CMAKE_SOURCE_DIR}/resources)
+set(RESOURCES_DEST_DIR ${CMAKE_BINARY_DIR}/resources)
+add_custom_target(Resources ALL 
+  COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different 
+  ${RESOURCES_SOURCE_DIR} ${RESOURCES_DEST_DIR} 
+  COMMENT "Copying resources to build directory"
 )
 
 # Add sources to executable

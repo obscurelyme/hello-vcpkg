@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <raylib.h>
 
-#include "Editor/core.h"
+#include "Editor/pch.h"
 
 class GuiWindowTest : public ::testing::Test {
   protected:

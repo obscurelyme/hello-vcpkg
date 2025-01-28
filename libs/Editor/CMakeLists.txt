@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 project(Editor)
 
+find_package(fmt CONFIG REQUIRED)
+find_package(tinyxml2 CONFIG REQUIRED)
 find_package(yoga CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
@@ -25,6 +27,7 @@ set(SOURCES
   "${CMAKE_CURRENT_SOURCE_DIR}/src/guiroot.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/guiview.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/types.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/xmlparse.cpp"
 )
 
 set(INCLUDES
@@ -46,6 +49,8 @@ target_link_libraries(EditorTests PRIVATE
   imgui::imgui
   yoga::yogacore
   GTest::gtest_main
+  tinyxml2::tinyxml2
+  fmt::fmt
 )
 target_include_directories(EditorTests PRIVATE ${INCLUDES} ${rlimgui_SOURCE_DIR})
 add_compile_definitions(EditorTests PRIVATE BUILD_LIBTYPE_SHARED)
@@ -66,6 +71,8 @@ target_link_libraries(Editor PRIVATE
   winmm 
   raylib
   yoga::yogacore
+  tinyxml2::tinyxml2
+  fmt::fmt
 )
 target_include_directories(Editor PRIVATE ${rlimgui_SOURCE_DIR})
 target_include_directories(Editor PUBLIC ${INCLUDES})
@@ -74,3 +81,8 @@ if (MSVC)
 else()
   target_compile_options(Editor PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
+
+target_precompile_headers(Editor 
+  PUBLIC
+  include/Editor/pch.h
+)
