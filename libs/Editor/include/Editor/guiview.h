@@ -23,6 +23,7 @@ namespace Zero {
       ~GuiView() = default;
 
       void draw() override;
+      Elements type{Elements::View};
   };
 }  // namespace Zero
 

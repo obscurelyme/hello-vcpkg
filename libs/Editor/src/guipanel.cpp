@@ -2,10 +2,17 @@
 
 #include <fmt/base.h>
 #include <fmt/format.h>
+#include <imgui.h>
+
+#include "Editor/guielement.h"
+#include "Editor/guifont.h"
 
 namespace Zero {
   GuiPanel::GuiPanel(const std::string& panelTitle) {
-    title = panelTitle;
+    type = Elements::Panel;
+    requiredAttributes[Attribute::Title] = false;
+
+    setTitle(panelTitle);
     YGNodeSetContext(node, this);
     YGNodeStyleSetWidth(node, size.x);
     YGNodeStyleSetHeight(node, size.y);
@@ -32,9 +39,18 @@ namespace Zero {
     ImGui::SetNextWindowSize(ImVec2{width, height});
 
     ImGui::Begin(title.c_str(), &open, flags);
+    ImGui::PushFont(HeaderFont());
     ImGui::TextWrapped("%s", title.c_str());
+    ImGui::PopFont();
     ImGui::Separator();
     drawChildren();
     ImGui::End();
+  }
+
+  void GuiPanel::setTitle(const std::string& title) {
+    if (!title.empty()) {
+      GuiElement::setTitle(title);
+      GuiElement::requiredAttributes[Attribute::Title] = true;
+    }
   }
 }  // namespace Zero

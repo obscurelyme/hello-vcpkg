@@ -26,6 +26,7 @@ set(SOURCES
   "${CMAKE_CURRENT_SOURCE_DIR}/src/guipanel.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/guiroot.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/guiview.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/guitext.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/types.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/xmlparse.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/filewatcher.cpp"

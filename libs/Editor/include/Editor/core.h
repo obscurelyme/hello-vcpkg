@@ -2,11 +2,11 @@
 #define ZERONN_EDITOR_CORE_H_
 
 #include <memory>
+#include <unordered_map>
 
 #include "Editor/filewatcher.h"
 #include "Editor/guiroot.h"
 #include "Editor/xmlparse.h"
-
 
 namespace Zero {
   class Editor {

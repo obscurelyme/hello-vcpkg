@@ -254,4 +254,28 @@ namespace Zero {
       calculatedPosition.y = getTop() + parent->calculatedPosition.y;
     }
   }
+
+  bool GuiElement::isValidElement() {
+    for (auto [attribute, isSet] : requiredAttributes) {
+      if (!isSet) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  bool GuiElement::isValidTree() {
+    if (!isValidElement()) {
+      return false;
+    }
+
+    for (auto child : children) {
+      if (!child->isValidTree()) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }  // namespace Zero

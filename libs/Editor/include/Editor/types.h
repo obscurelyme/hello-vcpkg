@@ -94,6 +94,8 @@ namespace Zero {
 
   ImVec4 convertColor(const ::Color& color);
 
+  enum class Elements { Unknown, Panel, View, Text, InputText, Button, Menu, MenuItem, List, ListItem };
+
   enum class Attribute {
     Unknown,
     Id,

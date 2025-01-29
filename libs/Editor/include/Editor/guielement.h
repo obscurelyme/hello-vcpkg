@@ -1,10 +1,12 @@
 #ifndef ZERO_EDITOR_GUI_ELEMENT_H_
 #define ZERO_EDITOR_GUI_ELEMENT_H_
 
+#include <imgui.h>
 #include <raylib.h>
 #include <yoga/Yoga.h>
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "Editor/types.h"
@@ -39,13 +41,23 @@ namespace Zero {
       virtual void calculateSize();
       virtual void calculatePosition();
 
+      // Returns true if this element is valid and can be drawn
+      virtual bool isValidElement();
+      // Returns true if this element's tree is valid and can be drawn
+      virtual bool isValidTree();
+
       YGNodeRef node{nullptr};
       std::string title{""};
+      std::string innerText{""};
       std::string id{""};
       GuiElement* parent{nullptr};
       std::vector<GuiElement*> children{};
       Vector2 calculatedSize{0, 0};
       Vector2 calculatedPosition{0, 0};
+      Elements type{Elements::Unknown};
+
+    protected:
+      std::unordered_map<Attribute, bool> requiredAttributes{};
   };
 }  // namespace Zero
 

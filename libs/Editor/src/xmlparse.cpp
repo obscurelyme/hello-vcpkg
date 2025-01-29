@@ -12,6 +12,7 @@
 #include "Editor/guielement.h"
 #include "Editor/guipanel.h"
 #include "Editor/guiroot.h"
+#include "Editor/guitext.h"
 #include "Editor/guiview.h"
 #include "Editor/types.h"
 
@@ -20,13 +21,14 @@ namespace Zero {
 
   GuiElement* makePanelElement() { return static_cast<GuiElement*>(new GuiPanel()); }
   GuiElement* makeViewElement() { return static_cast<GuiElement*>(new GuiView()); }
+  GuiElement* makeTextElement() { return static_cast<GuiElement*>(new GuiText()); }
 
   const std::filesystem::path appDir = GetApplicationDirectory();
   const std::string resourcesPath = "resources";
   const std::string guiPath = "gui";
   const std::string editorFile = "editor.xml";
-  const std::unordered_map<std::string, MakeGuiElementFunc> guiElementMap = {{"Panel", makePanelElement},
-                                                                             {"View", makeViewElement}};
+  const std::unordered_map<std::string, MakeGuiElementFunc> guiElementMap = {
+      {"Panel", makePanelElement}, {"View", makeViewElement}, {"Text", makeTextElement}};
   const std::unordered_map<std::string_view, Attribute> attrMap = {{"id", Attribute::Id},
                                                                    {"title", Attribute::Title},
 
@@ -65,6 +67,10 @@ namespace Zero {
                                                                    {"gap", Attribute::Gap},
                                                                    {"gap-row", Attribute::GapRow},
                                                                    {"gap-column", Attribute::GapColumn}};
+  const std::unordered_map<std::string_view, Elements> elementMap = {
+      {"Panel", Elements::Panel},         {"View", Elements::View},     {"Text", Elements::Text},
+      {"InputText", Elements::InputText}, {"Button", Elements::Button}, {"Menu", Elements::Menu},
+      {"MenuItem", Elements::MenuItem},   {"List", Elements::List},     {"ListItem", Elements::ListItem}};
 
   const std::filesystem::path editorFilePath = appDir / resourcesPath / guiPath / editorFile;
 
@@ -95,7 +101,8 @@ namespace Zero {
     }
 
     if (!guiElementMap.contains(name)) {
-      throw std::runtime_error(fmt::format(fmt::runtime("XMLPARSE: Unknown GUI element: {:s}"), name));
+      fmt::println(fmt::runtime("XMLPARSE: Unknown GUI element: {:s}"), name);
+      return nullptr;
     }
 
     auto makeElement = guiElementMap.at(name);
@@ -108,6 +115,18 @@ namespace Zero {
     Padding padding;
 
     fmt::println(fmt::runtime("Start Element: {:s}: {:s}"), name, text);
+
+    auto elemType =
+        elementMap.contains((std::string_view)name) ? elementMap.at((std::string_view)name) : Elements::Unknown;
+    switch (elemType) {
+      case Elements::Text: {
+        guiElement->innerText = text;
+        break;
+      }
+      default:
+        break;
+    }
+
     const tinyxml2::XMLAttribute* attribute = element->FirstAttribute();
     while (attribute) {
       fmt::println(fmt::runtime("Attribute: {:s}: {:s} = {:s}"), name, attribute->Name(), attribute->Value());
@@ -345,8 +364,10 @@ namespace Zero {
     while (child) {
       GuiElement* c = process(guiRoot, child, depth + 1);
 
-      // NOTE: add child to current element
-      guiElement->addChild(c);
+      // NOTE: add child to current element, if one was returned
+      if (c != nullptr) {
+        guiElement->addChild(c);
+      }
 
       child = child->NextSiblingElement();
     }

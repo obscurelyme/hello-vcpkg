@@ -6,6 +6,7 @@
 
 namespace Zero {
   GuiView::GuiView() {
+    type = Elements::View;
     YGNodeSetAlwaysFormsContainingBlock(node, true);
     YGNodeSetContext(node, this);
   }

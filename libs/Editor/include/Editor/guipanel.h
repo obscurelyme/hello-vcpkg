@@ -12,6 +12,7 @@ namespace Zero {
       ~GuiPanel() = default;
 
       void draw() override;
+      void setTitle(const std::string&) override;
 
       bool open{true};
       ImVec2 position{0, 0};
