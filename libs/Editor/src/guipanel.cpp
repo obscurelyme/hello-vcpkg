@@ -12,7 +12,6 @@ namespace Zero {
   GuiPanel::GuiPanel(const std::string& panelTitle) {
     type = Elements::Panel;
     requiredAttributes[Attribute::Title] = false;
-
     setTitle(panelTitle);
     YGNodeSetContext(node, this);
     YGNodeStyleSetWidth(node, size.x);
@@ -23,6 +22,7 @@ namespace Zero {
 
   void GuiPanel::draw() {
     calculate();
+
     // float top = getTop();
     // float left = getLeft();
     float width = getWidth();

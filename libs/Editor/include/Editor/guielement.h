@@ -52,6 +52,16 @@ namespace Zero {
       // Returns true if this element's tree is valid and can be drawn
       virtual bool isValidTree();
 
+      virtual void setId(const std::string& id) {
+        this->id = id;
+        profilerStringId = toProfilerFormatString();
+      }
+
+      void startProfile(const std::string&);
+      void endProfile(const std::string&);
+      void pauseProfile(const std::string&);
+      void resumeProfile(const std::string&);
+
       YGNodeRef node{nullptr};
       std::string title{""};
       std::string innerText{""};
@@ -67,8 +77,11 @@ namespace Zero {
       Elements type{Elements::Unknown};
 
     protected:
+      static std::unordered_map<Elements, std::string> elementTypeNames;
       std::unordered_map<Attribute, bool> requiredAttributes{};
       void debugLayout();
+      std::string toProfilerFormatString() const;
+      std::string profilerStringId{""};
   };
 }  // namespace Zero
 

@@ -3,10 +3,17 @@
 #include <YGNodeStyle.h>
 #include <fmt/printf.h>
 
+#include "Editor/profiler.h"
 #include "Editor/types.h"
 
 namespace Zero {
-  GuiElement::GuiElement() : node(YGNodeNew()), title(""), id("") {}
+  std::unordered_map<Elements, std::string> GuiElement::elementTypeNames{
+      {Elements::Button, "Button"},     {Elements::InputText, "InputText"}, {Elements::Text, "Text"},
+      {Elements::List, "List"},         {Elements::ListItem, "ListItem"},   {Elements::Menu, "Menu"},
+      {Elements::MenuItem, "MenuItem"}, {Elements::Panel, "Panel"},         {Elements::View, "View"},
+      {Elements::Unknown, "Unknown"}};
+
+  GuiElement::GuiElement() : node(YGNodeNew()), title(""), id(""), type(Elements::Unknown) {}
 
   GuiElement::~GuiElement() {
     for (size_t i = 0; i < YGNodeGetChildCount(node); i++) {
@@ -344,5 +351,25 @@ namespace Zero {
   void GuiElement::debugLayout() {
     fmt::println("Node: {} Position: ({}, {}) Size: ({}, {})", title, YGNodeLayoutGetLeft(node),
                  YGNodeLayoutGetTop(node), YGNodeLayoutGetWidth(node), YGNodeLayoutGetHeight(node));
+  }
+
+  std::string GuiElement::toProfilerFormatString() const {
+    return fmt::format(fmt::runtime("[{:s}][{:s}]"), elementTypeNames[type], id);
+  }
+
+  void GuiElement::startProfile(const std::string& profilerString) {
+    Profiler::start(fmt::format("{:s}::{:s}", profilerStringId, profilerString));
+  }
+
+  void GuiElement::endProfile(const std::string& profilerString) {
+    Profiler::end(fmt::format("{:s}::{:s}", profilerStringId, profilerString));
+  }
+
+  void GuiElement::pauseProfile(const std::string& profilerString) {
+    Profiler::pause(fmt::format("{:s}::{:s}", profilerStringId, profilerString));
+  }
+
+  void GuiElement::resumeProfile(const std::string& profilerString) {
+    Profiler::unpause(fmt::format("{:s}::{:s}", profilerStringId, profilerString));
   }
 }  // namespace Zero

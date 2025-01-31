@@ -30,6 +30,7 @@ set(SOURCES
   "${CMAKE_CURRENT_SOURCE_DIR}/src/types.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/xmlparse.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/filewatcher.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/profiler.cpp"
 )
 
 set(INCLUDES

@@ -11,8 +11,6 @@ namespace Zero {
 
       void draw() override;
       bool isValidElement() override;
-
-      Elements type{Elements::Text};
   };
 }  // namespace Zero
 

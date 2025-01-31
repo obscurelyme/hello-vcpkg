@@ -1,10 +1,28 @@
-<View id="core-view" flexDirection="row" height="100%" width="100%" gap="50">
-  <Panel id="scene-panel" title="Scenes" height="100%" width="300" />
-  <View id="central-view" flexDirection="column" height="100%" flexGrow="1">
+<View id="core-view" flexDirection="row" height="100%" width="100%" gap="15" paddingTop="25">
+  <Panel id="scene-panel" title="Scenes" height="100%" width="300">
+    <Text id="lorem-ipsum-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+    <Text id="lorem-ipsum-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+    <Text id="lorem-ipsum-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+  </Panel>
+  <View id="central-view" flexDirection="column" height="100%" flexGrow="1" gap="15">
+    <View id="toolbar" flexDirection="row" height="50" width="100%" gap="10" alignItems="stretch" justifyContent="space-between">
+      <Panel title="File" width="50" height="100%" flexGrow="1">
+        <Text id="button-4">File</Text>
+      </Panel>
+      <Panel title="Edit" width="50" height="100%" flexGrow="1">
+        <Text id="button-5">Edit</Text>
+      </Panel>
+      <Panel title="Menu" width="50" height="100%" flexGrow="1">
+        <Text id="button-6">Menu</Text>
+      </Panel>
+      <Panel title="Help" width="50" height="100%" flexGrow="1">
+        <Text id="button-7">Help</Text>
+      </Panel>
+    </View>
     <Panel id="viewport-panel" title="Viewport" flexGrow="1" width="100%" />
     <Panel id="console-panel" title="Console" height="300" width="100%" />
   </View>
   <Panel id="entities-panel" title="Entities" height="100%" width="300">
-    <Text id="lorem-ipsum-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+    <Text id="lorem-ipsum-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
   </Panel>
 </View>

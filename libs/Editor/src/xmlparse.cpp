@@ -140,7 +140,7 @@ namespace Zero {
       // NOTE: make this better later...
       switch (attrType) {
         case Attribute::Id: {
-          guiElement->id = std::string{attribute->Value()};
+          guiElement->setId(std::string{attribute->Value()});
           break;
         }
         case Attribute::Title: {
