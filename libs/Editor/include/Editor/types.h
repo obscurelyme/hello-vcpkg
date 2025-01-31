@@ -28,7 +28,9 @@ namespace Zero {
   class Flex {
     public:
       std::optional<FlexDirection> flexDirection{std::nullopt};
-      std::optional<FlexAlign> flexAlign{std::nullopt};
+      std::optional<FlexAlign> flexAlignItems{std::nullopt};
+      std::optional<FlexAlign> flexAlignSelf{std::nullopt};
+      std::optional<FlexAlign> flexAlignContent{std::nullopt};
       std::optional<FlexJustify> flexJustify{std::nullopt};
       std::optional<float> flexBasis{std::nullopt};
       std::optional<float> flex{std::nullopt};
@@ -135,8 +137,10 @@ namespace Zero {
     PaddingLeft,
 
     FlexDirection,
-    FlexAlign,
-    FlexJustify,
+    FlexAlignItems,
+    FlexAlignSelf,
+    FlexAlignContent,
+    FlexJustifyContent,
     FlexBasis,
     FlexBasisAuto,
     Flex,

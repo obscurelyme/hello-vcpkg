@@ -30,8 +30,16 @@ namespace Zero {
       YGNodeStyleSetFlex(node, flexStyles.flex.value());
     }
 
-    if (flexStyles.flexAlign.has_value()) {
-      YGNodeStyleSetAlignItems(node, flexStyles.flexAlign.value());
+    if (flexStyles.flexAlignItems.has_value()) {
+      YGNodeStyleSetAlignItems(node, flexStyles.flexAlignItems.value());
+    }
+
+    if (flexStyles.flexAlignSelf.has_value()) {
+      YGNodeStyleSetAlignSelf(node, flexStyles.flexAlignSelf.value());
+    }
+
+    if (flexStyles.flexAlignContent.has_value()) {
+      YGNodeStyleSetAlignContent(node, flexStyles.flexAlignContent.value());
     }
 
     if (flexStyles.flexBasisAuto.has_value() && flexStyles.flexBasisAuto.value()) {

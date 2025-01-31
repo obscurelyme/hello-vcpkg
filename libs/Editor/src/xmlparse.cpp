@@ -58,8 +58,10 @@ namespace Zero {
                                                                    {"paddingLeft", Attribute::PaddingLeft},
 
                                                                    {"flexDirection", Attribute::FlexDirection},
-                                                                   {"alignItems", Attribute::FlexAlign},
-                                                                   {"justifyContent", Attribute::FlexJustify},
+                                                                   {"alignItems", Attribute::FlexAlignItems},
+                                                                   {"alignSelf", Attribute::FlexAlignSelf},
+                                                                   {"alignContent", Attribute::FlexAlignContent},
+                                                                   {"justifyContent", Attribute::FlexJustifyContent},
                                                                    {"flexBasis", Attribute::FlexBasis},
                                                                    {"flexGrow", Attribute::FlexGrow},
                                                                    {"flexShrink", Attribute::FlexShrink},
@@ -272,30 +274,76 @@ namespace Zero {
           }
           break;
         }
-        case Attribute::FlexAlign: {
+        case Attribute::FlexAlignItems: {
           std::string_view v = attribute->Value();
           if (v == "center") {
-            flexStyles.flexAlign = FlexAlign::YGAlignCenter;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignCenter;
           } else if (v == "flex-start") {
-            flexStyles.flexAlign = FlexAlign::YGAlignFlexStart;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignFlexStart;
           } else if (v == "flex-end") {
-            flexStyles.flexAlign = FlexAlign::YGAlignFlexEnd;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignFlexEnd;
           } else if (v == "stretch") {
-            flexStyles.flexAlign = FlexAlign::YGAlignStretch;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignStretch;
           } else if (v == "auto") {
-            flexStyles.flexAlign = FlexAlign::YGAlignAuto;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignAuto;
           } else if (v == "baseline") {
-            flexStyles.flexAlign = FlexAlign::YGAlignBaseline;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignBaseline;
           } else if (v == "space-around") {
-            flexStyles.flexAlign = FlexAlign::YGAlignSpaceAround;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignSpaceAround;
           } else if (v == "space-between") {
-            flexStyles.flexAlign = FlexAlign::YGAlignSpaceBetween;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignSpaceBetween;
           } else if (v == "space-evenly") {
-            flexStyles.flexAlign = FlexAlign::YGAlignSpaceEvenly;
+            flexStyles.flexAlignItems = FlexAlign::YGAlignSpaceEvenly;
           }
           break;
         }
-        case Attribute::FlexJustify: {
+        case Attribute::FlexAlignSelf: {
+          std::string_view v = attribute->Value();
+          if (v == "center") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignCenter;
+          } else if (v == "flex-start") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignFlexStart;
+          } else if (v == "flex-end") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignFlexEnd;
+          } else if (v == "stretch") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignStretch;
+          } else if (v == "auto") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignAuto;
+          } else if (v == "baseline") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignBaseline;
+          } else if (v == "space-around") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignSpaceAround;
+          } else if (v == "space-between") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignSpaceBetween;
+          } else if (v == "space-evenly") {
+            flexStyles.flexAlignSelf = FlexAlign::YGAlignSpaceEvenly;
+          }
+          break;
+        }
+        case Attribute::FlexAlignContent: {
+          std::string_view v = attribute->Value();
+          if (v == "center") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignCenter;
+          } else if (v == "flex-start") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignFlexStart;
+          } else if (v == "flex-end") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignFlexEnd;
+          } else if (v == "stretch") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignStretch;
+          } else if (v == "auto") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignAuto;
+          } else if (v == "baseline") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignBaseline;
+          } else if (v == "space-around") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignSpaceAround;
+          } else if (v == "space-between") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignSpaceBetween;
+          } else if (v == "space-evenly") {
+            flexStyles.flexAlignContent = FlexAlign::YGAlignSpaceEvenly;
+          }
+          break;
+        }
+        case Attribute::FlexJustifyContent: {
           std::string_view v = attribute->Value();
           if (v == "center") {
             flexStyles.flexJustify = FlexJustify::YGJustifyCenter;
