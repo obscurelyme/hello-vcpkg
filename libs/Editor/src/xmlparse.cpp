@@ -113,6 +113,7 @@ namespace Zero {
     Border border;
     Margin margin;
     Padding padding;
+    Gap gap;
 
     fmt::println(fmt::runtime("Start Element: {:s}: {:s}"), name, text);
 
@@ -335,15 +336,15 @@ namespace Zero {
           break;
         }
         case Attribute::Gap: {
-          flexStyles.gap = attribute->FloatValue();
+          gap.all = attribute->FloatValue();
           break;
         }
         case Attribute::GapRow: {
-          flexStyles.gapRow = attribute->FloatValue();
+          gap.row = attribute->FloatValue();
           break;
         }
         case Attribute::GapColumn: {
-          flexStyles.gapColumn = attribute->FloatValue();
+          gap.column = attribute->FloatValue();
           break;
         }
         default:
@@ -359,6 +360,7 @@ namespace Zero {
     guiElement->setBorder(border);
     guiElement->setMargin(margin);
     guiElement->setPadding(padding);
+    guiElement->setGap(gap);
 
     tinyxml2::XMLElement* child = element->FirstChildElement();
     while (child) {

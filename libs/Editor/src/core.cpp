@@ -8,6 +8,7 @@
 
 #include <filesystem>
 #include <memory>
+#include <mutex>
 
 #include "Editor/guifont.h"
 #include "Editor/guiroot.h"
@@ -44,6 +45,7 @@ namespace Zero {
       auto tmp = std::make_shared<GuiRoot>();
       xmlParse.unmarshal(tmp.get());
       if (tmp->isValidTree()) {
+        std::lock_guard<std::mutex> lock(rootMutex);
         root = tmp;
       } else {
         fmt::println("EDITOR: Invalid GUI tree detected");
@@ -53,7 +55,6 @@ namespace Zero {
     std::filesystem::path dir = GetApplicationDirectory();
     std::filesystem::path file = dir / "resources" / "gui" / "editor.xml";
 
-    fileWatcher.startWatching(file, onFileChanged);
     auto tmp = std::make_shared<GuiRoot>();
     xmlParse.unmarshal(tmp.get());
     if (tmp->isValidTree()) {
@@ -61,15 +62,12 @@ namespace Zero {
     } else {
       fmt::println("EDITOR: Invalid GUI tree detected");
     }
+    fileWatcher.startWatching(file, onFileChanged);
   }
 
   Editor::~Editor() {}
 
   void Editor::cleanUp() {
-    // for (auto [fontName, font] : Fonts) {
-    //   delete font;
-    // }
-    // ImGui::GetIO().Fonts->Clear();
     ImGui_ImplRaylib_Shutdown();
     ImGui::DestroyContext();
   }
@@ -85,5 +83,8 @@ namespace Zero {
     ImGui_ImplRaylib_RenderDrawData(ImGui::GetDrawData());
   }
 
-  void Editor::render() { root->draw(); }
+  void Editor::render() {
+    std::lock_guard<std::mutex> lock(rootMutex);
+    root->draw();
+  }
 }  // namespace Zero

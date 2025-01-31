@@ -2,7 +2,7 @@
 #define ZERONN_EDITOR_CORE_H_
 
 #include <memory>
-#include <unordered_map>
+#include <mutex>
 
 #include "Editor/filewatcher.h"
 #include "Editor/guiroot.h"
@@ -22,6 +22,7 @@ namespace Zero {
 
       std::function<void()> onFileChanged;
       std::shared_ptr<GuiRoot> root{nullptr};
+      std::mutex rootMutex;
       XmlParse xmlParse;
       FileWatcher fileWatcher;
   };

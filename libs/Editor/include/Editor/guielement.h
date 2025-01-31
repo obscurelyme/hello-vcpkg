@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "Editor/types.h"
+#include "types.h"
 
 namespace Zero {
   // Interface for all Editor GUI elements
@@ -35,11 +36,16 @@ namespace Zero {
       virtual void setBorder(const Border&);
       virtual void setMargin(const Margin&);
       virtual void setPadding(const Padding&);
+      virtual void setGap(const Gap&);
       virtual void setTitle(const std::string&);
       // Recalculate the size and position of this element based on the parent's calculation
       virtual void calculate();
       virtual void calculateSize();
+      virtual void calculateBorder();
+      virtual void calculateMargin();
+      virtual void calculatePadding();
       virtual void calculatePosition();
+      virtual Vector4 calculateVec4(const float, const float, const float, const float, const float);
 
       // Returns true if this element is valid and can be drawn
       virtual bool isValidElement();
@@ -54,10 +60,15 @@ namespace Zero {
       std::vector<GuiElement*> children{};
       Vector2 calculatedSize{0, 0};
       Vector2 calculatedPosition{0, 0};
+      Vector4 border{0, 0, 0, 0};
+      Vector4 margin{0, 0, 0, 0};
+      Vector4 padding{0, 0, 0, 0};
+      Vector2 gap{0, 0};
       Elements type{Elements::Unknown};
 
     protected:
       std::unordered_map<Attribute, bool> requiredAttributes{};
+      void debugLayout();
   };
 }  // namespace Zero
 

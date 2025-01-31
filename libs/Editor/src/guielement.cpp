@@ -1,8 +1,9 @@
 #include "Editor/guielement.h"
 
 #include <YGNodeStyle.h>
+#include <fmt/printf.h>
 
-#include <algorithm>
+#include "Editor/types.h"
 
 namespace Zero {
   GuiElement::GuiElement() : node(YGNodeNew()), title(""), id("") {}
@@ -177,23 +178,37 @@ namespace Zero {
 
   void GuiElement::setPadding(const Padding& padding) {
     if (padding.all.has_value()) {
-      YGNodeStyleSetMargin(node, Edge::YGEdgeAll, padding.all.value());
+      YGNodeStyleSetPadding(node, Edge::YGEdgeAll, padding.all.value());
     }
 
     if (padding.top.has_value()) {
-      YGNodeStyleSetMargin(node, Edge::YGEdgeTop, padding.top.value());
+      YGNodeStyleSetPadding(node, Edge::YGEdgeTop, padding.top.value());
     }
 
     if (padding.right.has_value()) {
-      YGNodeStyleSetMargin(node, Edge::YGEdgeRight, padding.right.value());
+      YGNodeStyleSetPadding(node, Edge::YGEdgeRight, padding.right.value());
     }
 
     if (padding.bottom.has_value()) {
-      YGNodeStyleSetMargin(node, Edge::YGEdgeBottom, padding.bottom.value());
+      YGNodeStyleSetPadding(node, Edge::YGEdgeBottom, padding.bottom.value());
     }
 
     if (padding.left.has_value()) {
-      YGNodeStyleSetMargin(node, Edge::YGEdgeLeft, padding.left.value());
+      YGNodeStyleSetPadding(node, Edge::YGEdgeLeft, padding.left.value());
+    }
+  }
+
+  void GuiElement::setGap(const Gap& gap) {
+    if (gap.all.has_value()) {
+      YGNodeStyleSetGap(node, YGGutter::YGGutterAll, gap.all.value());
+    }
+
+    if (gap.column.has_value()) {
+      YGNodeStyleSetGap(node, YGGutter::YGGutterColumn, gap.column.value());
+    }
+
+    if (gap.row.has_value()) {
+      YGNodeStyleSetGap(node, YGGutter::YGGutterRow, gap.row.value());
     }
   }
 
@@ -238,6 +253,9 @@ namespace Zero {
   }
 
   void GuiElement::calculate() {
+    calculateBorder();
+    calculateMargin();
+    calculatePadding();
     calculateSize();
     calculatePosition();
   }
@@ -250,9 +268,45 @@ namespace Zero {
   void GuiElement::calculatePosition() {
     auto parent = this->parent;
     if (parent) {
-      calculatedPosition.x = getLeft() + parent->calculatedPosition.x;
-      calculatedPosition.y = getTop() + parent->calculatedPosition.y;
+      calculatedPosition.x = getLeft() + parent->calculatedPosition.x + parent->margin.z;
+      calculatedPosition.y = getTop() + parent->calculatedPosition.y + parent->margin.w;
+      return;
     }
+    calculatedPosition.x = getLeft();
+    calculatedPosition.y = getTop();
+  }
+
+  void GuiElement::calculateBorder() {
+    border =
+        calculateVec4(YGNodeStyleGetBorder(node, Edge::YGEdgeAll), YGNodeStyleGetBorder(node, Edge::YGEdgeTop),
+                      YGNodeStyleGetBorder(node, Edge::YGEdgeRight), YGNodeStyleGetBorder(node, Edge::YGEdgeBottom),
+                      YGNodeStyleGetBorder(node, Edge::YGEdgeLeft));
+  }
+
+  void GuiElement::calculateMargin() {
+    margin = calculateVec4(
+        YGNodeStyleGetMargin(node, Edge::YGEdgeAll).value, YGNodeStyleGetMargin(node, Edge::YGEdgeTop).value,
+        YGNodeStyleGetMargin(node, Edge::YGEdgeRight).value, YGNodeStyleGetMargin(node, Edge::YGEdgeBottom).value,
+        YGNodeStyleGetMargin(node, Edge::YGEdgeLeft).value);
+  }
+
+  void GuiElement::calculatePadding() {
+    padding = calculateVec4(
+        YGNodeStyleGetPadding(node, Edge::YGEdgeAll).value, YGNodeStyleGetPadding(node, Edge::YGEdgeTop).value,
+        YGNodeStyleGetPadding(node, Edge::YGEdgeRight).value, YGNodeStyleGetPadding(node, Edge::YGEdgeBottom).value,
+        YGNodeStyleGetPadding(node, Edge::YGEdgeLeft).value);
+  }
+
+  Vector4 GuiElement::calculateVec4(const float all, const float top, const float right, const float bottom,
+                                    const float left) {
+    Vector4 vec4;
+
+    vec4.w = YGFloatIsUndefined(top) ? (YGFloatIsUndefined(all) ? 0 : all) : top;
+    vec4.x = YGFloatIsUndefined(right) ? (YGFloatIsUndefined(all) ? 0 : all) : right;
+    vec4.y = YGFloatIsUndefined(bottom) ? (YGFloatIsUndefined(all) ? 0 : all) : bottom;
+    vec4.z = YGFloatIsUndefined(left) ? (YGFloatIsUndefined(all) ? 0 : all) : left;
+
+    return vec4;
   }
 
   bool GuiElement::isValidElement() {
@@ -277,5 +331,10 @@ namespace Zero {
     }
 
     return true;
+  }
+
+  void GuiElement::debugLayout() {
+    fmt::println("Node: {} Position: ({}, {}) Size: ({}, {})", title, YGNodeLayoutGetLeft(node),
+                 YGNodeLayoutGetTop(node), YGNodeLayoutGetWidth(node), YGNodeLayoutGetHeight(node));
   }
 }  // namespace Zero

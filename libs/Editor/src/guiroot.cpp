@@ -1,6 +1,7 @@
 #include "Editor/guiroot.h"
 
 #include <YGConfig.h>
+#include <YGValue.h>
 
 namespace Zero {
   GuiRoot::GuiRoot() {

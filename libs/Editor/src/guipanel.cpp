@@ -1,5 +1,6 @@
 #include "Editor/guipanel.h"
 
+#include <YGNodeStyle.h>
 #include <fmt/base.h>
 #include <fmt/format.h>
 #include <imgui.h>
@@ -22,10 +23,12 @@ namespace Zero {
 
   void GuiPanel::draw() {
     calculate();
-    float top = getTop();
-    float left = getLeft();
+    // float top = getTop();
+    // float left = getLeft();
     float width = getWidth();
     float height = getHeight();
+    position = {YGNodeStyleGetPosition(node, YGEdge::YGEdgeLeft).value,
+                YGNodeStyleGetPosition(node, YGEdge::YGEdgeTop).value};
 
     // NOTE:
     // I really thought that this would be a good idea, but it turns out that the flex window calculates only
@@ -33,8 +36,8 @@ namespace Zero {
     // needs to still account for where it's parent is located.
     // https://github.com/facebook/yoga/issues/1053#issuecomment-757537766
     calculatedSize = {width, height};
-    calculatedPosition = {left + this->parent->calculatedPosition.x, top + this->parent->calculatedPosition.y};
-
+    // calculatedPosition = {left + this->parent->calculatedPosition.x, top + this->parent->calculatedPosition.y};
+    // calculatedPosition = {left, top};
     ImGui::SetNextWindowPos(ImVec2{calculatedPosition.x, calculatedPosition.y});
     ImGui::SetNextWindowSize(ImVec2{width, height});
 

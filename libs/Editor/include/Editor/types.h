@@ -42,6 +42,13 @@ namespace Zero {
       std::optional<float> gapColumn{std::nullopt};
   };
 
+  class Gap {
+    public:
+      std::optional<float> all{std::nullopt};
+      std::optional<float> row{std::nullopt};
+      std::optional<float> column{std::nullopt};
+  };
+
   class Border {
     public:
       std::optional<float> all{std::nullopt};
@@ -90,6 +97,7 @@ namespace Zero {
       std::optional<Border> border{std::nullopt};
       std::optional<Margin> margin{std::nullopt};
       std::optional<Padding> padding{std::nullopt};
+      std::optional<Gap> gap{std::nullopt};
   };
 
   ImVec4 convertColor(const ::Color& color);
