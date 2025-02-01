@@ -5,6 +5,7 @@
 #include <raylib.h>
 #include <yoga/Yoga.h>
 
+#include <cstddef>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -28,6 +29,7 @@ namespace Zero {
       Gap gap;
       Elements type{Elements::Unknown};
 
+      size_t parentIndex{SIZE_MAX};
       std::vector<size_t> childIndices{};
   };
 
