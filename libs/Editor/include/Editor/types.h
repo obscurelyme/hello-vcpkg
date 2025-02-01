@@ -51,6 +51,15 @@ namespace Zero {
       std::optional<float> column{std::nullopt};
   };
 
+  struct EdgeSpace {
+    public:
+      std::optional<float> all{std::nullopt};
+      std::optional<float> top{std::nullopt};
+      std::optional<float> right{std::nullopt};
+      std::optional<float> bottom{std::nullopt};
+      std::optional<float> left{std::nullopt};
+  };
+
   class Border {
     public:
       std::optional<float> all{std::nullopt};

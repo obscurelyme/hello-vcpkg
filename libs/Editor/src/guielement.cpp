@@ -24,6 +24,11 @@ namespace Zero {
     YGNodeFree(node);
   }
 
+  void GuiElement::setId(const std::string& id) {
+    this->id = id;
+    profilerStringId = toProfilerFormatString();
+  }
+
   void GuiElement::drawChildren() {
     for (size_t i = 0; i < YGNodeGetChildCount(node); i++) {
       auto childNode = YGNodeGetChild(node, i);
