@@ -13,6 +13,24 @@
 #include "types.h"
 
 namespace Zero {
+  struct GuiElementData {
+    public:
+      std::string id{""};
+      std::string name{""};
+      std::string title{""};
+      std::string innerText{""};
+
+      Vector2 calculatedSize{0, 0};
+      Vector2 calculatedPosition{0, 0};
+      EdgeSpace border;
+      EdgeSpace margin;
+      EdgeSpace padding;
+      Gap gap;
+      Elements type{Elements::Unknown};
+
+      std::vector<size_t> childIndices{};
+  };
+
   // Interface for all Editor GUI elements
   class GuiElement {
     public:
@@ -51,11 +69,7 @@ namespace Zero {
       virtual bool isValidElement();
       // Returns true if this element's tree is valid and can be drawn
       virtual bool isValidTree();
-
-      virtual void setId(const std::string& id) {
-        this->id = id;
-        profilerStringId = toProfilerFormatString();
-      }
+      virtual void setId(const std::string& id);
 
       void startProfile(const std::string&);
       void endProfile(const std::string&);
