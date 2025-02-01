@@ -1,0 +1,55 @@
+--- Profiler Results --------------------------------------------
+Profiler: GuiView::Draw took 390.247000ms total over 14308 calls, and 0.062000ms over this call.
+Profiler: GuiPanel::Calculate Extras took 0.132000ms total over 28616 calls, and 0.000000ms over this call.
+Profiler: GuiRoot::Draw took 818.828000ms total over 7154 calls, and 0.172000ms over this call.
+Profiler: GuiPanel::Calculate took 2.892000ms total over 28616 calls, and 0.001000ms over this call.
+Profiler: GuiView::Calculate took 9.980000ms total over 14308 calls, and 0.001000ms over this call.
+Profiler: GuiPanel::Draw took 676.268000ms total over 28616 calls, and 0.033000ms over this call.
+Profiler: GuiText::Draw took 490.871000ms total over 28616 calls, and 0.024000ms over this call.
+Profiler: GuiText::Calculate took 8.614000ms total over 28616 calls, and 0.001000ms over this call.
+Profiler: Layout took 16.287000ms total over 7154 calls, and 0.003000ms over this call.
+----------------------------------------------------------------
+--- Profiler Results --------------------------------------------
+Profiler: GuiView::Draw took 868.770000ms total over 31222 calls, and 0.039000ms over this call.
+Profiler: GuiPanel::Calculate Extras took 3.460000ms total over 62444 calls, and 0.000000ms over this call.
+Profiler: GuiRoot::Draw took 1817.218000ms total over 15611 calls, and 0.108000ms over this call.
+Profiler: GuiPanel::Calculate took 8.102000ms total over 62444 calls, and 0.000000ms over this call.
+Profiler: GuiView::Calculate took 22.382000ms total over 31222 calls, and 0.000000ms over this call.
+Profiler: GuiPanel::Draw took 1499.524000ms total over 62444 calls, and 0.022000ms over this call.
+Profiler: GuiText::Draw took 1088.120000ms total over 62444 calls, and 0.017000ms over this call.
+Profiler: GuiText::Calculate took 20.140000ms total over 62444 calls, and 0.000000ms over this call.
+Profiler: Layout took 35.735000ms total over 15611 calls, and 0.002000ms over this call.
+----------------------------------------------------------------
+--- Profiler Results --------------------------------------------
+Profiler: GuiView::Draw took 1480.625000ms total over 46534 calls, and 0.061000ms over this call.
+Profiler: GuiPanel::Calculate Extras took 3.644000ms total over 93068 calls, and 0.000000ms over this call.
+Profiler: GuiRoot::Draw took 3070.790000ms total over 23267 calls, and 0.173000ms over this call.
+Profiler: GuiPanel::Calculate took 34.564000ms total over 93068 calls, and 0.001000ms over this call.
+Profiler: GuiView::Calculate took 42.991000ms total over 46534 calls, and 0.001000ms over this call.
+Profiler: GuiPanel::Draw took 2545.283000ms total over 93068 calls, and 0.034000ms over this call.
+Profiler: GuiText::Draw took 1824.701000ms total over 93068 calls, and 0.024000ms over this call.
+Profiler: GuiText::Calculate took 47.697000ms total over 93068 calls, and 0.001000ms over this call.
+Profiler: Layout took 59.074000ms total over 23267 calls, and 0.004000ms over this call.
+----------------------------------------------------------------
+--- Profiler Results --------------------------------------------
+Profiler: GuiView::Draw took 2114.823000ms total over 61568 calls, and 0.062000ms over this call.
+Profiler: GuiPanel::Calculate Extras took 3.824000ms total over 123136 calls, and 0.000000ms over this call.
+Profiler: GuiRoot::Draw took 4368.543000ms total over 30784 calls, and 0.172000ms over this call.
+Profiler: GuiPanel::Calculate took 64.493000ms total over 123136 calls, and 0.001000ms over this call.
+Profiler: GuiView::Calculate took 64.958000ms total over 61568 calls, and 0.001000ms over this call.
+Profiler: GuiPanel::Draw took 3628.790000ms total over 123136 calls, and 0.034000ms over this call.
+Profiler: GuiText::Draw took 2585.261000ms total over 123136 calls, and 0.024000ms over this call.
+Profiler: GuiText::Calculate took 77.908000ms total over 123136 calls, and 0.001000ms over this call.
+Profiler: Layout took 83.100000ms total over 30784 calls, and 0.003000ms over this call.
+----------------------------------------------------------------
+--- Profiler Results --------------------------------------------
+Profiler: GuiView::Draw took 2732.267000ms total over 76362 calls, and 0.081000ms over this call.
+Profiler: GuiPanel::Calculate Extras took 4.028000ms total over 152724 calls, and 0.000000ms over this call.
+Profiler: GuiRoot::Draw took 5635.951000ms total over 38181 calls, and 0.223000ms over this call.
+Profiler: GuiPanel::Calculate took 93.334000ms total over 152724 calls, and 0.001000ms over this call.
+Profiler: GuiView::Calculate took 86.448000ms total over 76362 calls, and 0.002000ms over this call.
+Profiler: GuiPanel::Draw took 4687.014000ms total over 152724 calls, and 0.044000ms over this call.
+Profiler: GuiText::Draw took 3328.808000ms total over 152724 calls, and 0.032000ms over this call.
+Profiler: GuiText::Calculate took 107.378000ms total over 152724 calls, and 0.001000ms over this call.
+Profiler: Layout took 107.064000ms total over 38181 calls, and 0.005000ms over this call.
+----------------------------------------------------------------

@@ -10,9 +10,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(C_STANDARD 20)
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_VERBOSE_MAKEFILE ON)
 
+include(cmake/googletest.cmake)
 # Find packages
+find_package(imgui CONFIG REQUIRED)
 find_package(Boost REQUIRED COMPONENTS uuid)
 find_package(argparse CONFIG REQUIRED)
 find_package(raylib CONFIG REQUIRED)
@@ -45,7 +46,7 @@ set(SOURCES
   ${ECS}
 )
 
-# Add assets folder
+# Add assets and resources folder
 set(ASSETS_SOURCE_DIR ${CMAKE_SOURCE_DIR}/assets)
 set(ASSETS_DEST_DIR ${CMAKE_BINARY_DIR}/assets)
 add_custom_target(Assets ALL 
@@ -53,12 +54,20 @@ add_custom_target(Assets ALL
   ${ASSETS_SOURCE_DIR} ${ASSETS_DEST_DIR} 
   COMMENT "Copying assets to build directory"
 )
+set(RESOURCES_SOURCE_DIR ${CMAKE_SOURCE_DIR}/resources)
+set(RESOURCES_DEST_DIR ${CMAKE_BINARY_DIR}/resources)
+add_custom_target(Resources ALL 
+  COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different 
+  ${RESOURCES_SOURCE_DIR} ${RESOURCES_DEST_DIR} 
+  COMMENT "Copying resources to build directory"
+)
 
 # Add sources to executable
 add_executable(RaylibPong ${SOURCES})
 
 # Add submodules
 add_subdirectory("libs/Logging")
+add_subdirectory("libs/Editor")
 
 # Include directories
 target_include_directories(RaylibPong PRIVATE include)
@@ -72,10 +81,12 @@ target_link_libraries(RaylibPong PRIVATE
   Boost::uuid 
   Logging
   EnTT::EnTT
+  Editor
+  imgui::imgui
 )
 
 # Compile definitions
-add_compile_definitions(RaylibPong PRIVATE ZERO_BUILD=${CMAKE_BUILD_TYPE})
+add_compile_definitions(RaylibPong PRIVATE ZERO_BUILD=${CMAKE_BUILD_TYPE} BUILD_LIBTYPE_SHARED)
 
 # Compiler options, enable all warnings
 if (MSVC)

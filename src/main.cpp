@@ -1,5 +1,7 @@
+#include <Editor/pch.h>
 #include <fmt/core.h>
 #include <fmt/format.h>
+#include <imgui.h>
 #include <raylib.h>
 #include <raymath.h>
 
@@ -9,6 +11,7 @@
 #include <stdexcept>
 #include <string>
 
+#include "Editor/types.h"
 #include "args/args.h"
 #include "ecs/components/nativescript.h"
 #include "ecs/components/sprite.h"
@@ -40,6 +43,7 @@ int main(int argc, char* argv[]) {
     Zero::MonitorsManager::toggleVsync(vsync);
     Zero::InitTraceLogSinks();
     SetTraceLogCallback(Zero::RaylibTraceCallback);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Raylib Window");
     if (!IsWindowReady()) {
       Zero::ConsoleCrit("Raylib window was not initialized.");
@@ -65,6 +69,30 @@ int main(int argc, char* argv[]) {
     float fixedTargetDeltaTime = 1.0f / 60.0f;
     Zero::ConsoleTrace(fmt::format(fmt::runtime("Physics fixed timestep set to: {:f}"), fixedTargetDeltaTime));
 
+    Zero::Editor editor;
+    // Zero::GuiPanel panel1{"Test Panel #1"};
+    // Zero::GuiPanel panel2{"Test Panel #2"};
+    // Zero::GuiPanel panel3{"Test Panel #3"};
+
+    // Zero::GuiViewInput viewInput{true, true, 100, 100};
+    // Zero::GuiView view{viewInput};
+    // Zero::Flex flexStyles{.flexDirection = Zero::FlexDirection::YGFlexDirectionColumn,
+    //                       .flexAlign = Zero::FlexAlign::YGAlignCenter,
+    //                       .flexJustify = Zero::FlexJustify::YGJustifyCenter};
+    // view.setFlexStyles(flexStyles);
+
+    // panel1.setHeight(500);
+    // panel1.setWidth(200);
+    // Zero::Margin margin{.left = 10};
+    // panel1.setMargin(margin);
+
+    // editor.root.addChild(&panel2);
+    // editor.root.addChild(&panel1);
+    // editor.root.addChild(&view);
+    // view.addChild(&panel3);
+
+    // Zero::AppBar appBar{"Application"};
+
     while (!WindowShouldClose()) {
       deltaTime = GetFrameTime();
       fixedDeltaTime += deltaTime;
@@ -82,11 +110,15 @@ int main(int argc, char* argv[]) {
 
       // NOTE: rendering...
       BeginDrawing();
-      ClearBackground(BLACK);
+      ClearBackground(Zero::Background);
       DrawFPS(0, 0);
 
       // NOTE: Process renders for the active scene
       Zero::Render();
+
+      editor.beginRender();
+      editor.render();
+      editor.endRender();
 
       EndDrawing();
 
@@ -94,6 +126,7 @@ int main(int argc, char* argv[]) {
       Zero::ProcessDestroys();
     }
 
+    editor.cleanUp();
     scene.reset();
     Zero::SetActiveScene(nullptr);
     CleanUp();
